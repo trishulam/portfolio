@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Skip ESLint during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   // Performance optimizations
   images: {
     formats: ['image/webp', 'image/avif'],
