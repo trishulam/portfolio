@@ -1,0 +1,54 @@
+# Cursor Project Rules for Portfolio Website
+# This file helps maintain context across chat sessions
+
+## Project Overview
+- Single page portfolio website built with Next.js, TypeScript, and shadcn/ui
+- Dark/light theme support with focus on performance and accessibility
+- Following the PRD specifications for a high-performance landing page
+
+## Code Style & Conventions
+- Use TypeScript for type safety
+- Follow React best practices with Next.js App Router architecture
+- Prefer functional components with hooks
+- Use shadcn/ui components with custom styling
+- Maintain responsive design (mobile-first approach)
+
+## Git Commit Message Standards
+- Use conventional commit format: <type>(<scope>): <description>
+- Types:
+  - feat: New features
+  - fix: Bug fixes
+  - docs: Documentation changes
+  - style: Code style changes (formatting, missing semicolons, etc.)
+  - refactor: Code changes that neither fix bugs nor add features
+  - perf: Performance improvements
+  - test: Adding or modifying tests
+  - chore: Changes to build process, auxiliary tools, libraries
+
+## Project Structure
+- `/src/app`: Next.js App Router pages and layouts
+- `/src/components`: Reusable React components
+- `/src/components/sections`: Page section components
+- `/src/components/ui`: UI components from shadcn/ui
+- `/src/lib`: Utility functions and helpers
+- `/public`: Static assets (images, fonts, etc.)
+
+## Important Notes
+- The site follows a dark-first design with light theme toggle
+- Email addresses and social links need to be replaced with actual data
+- Performance is a priority (target Lighthouse score 95+)
+- Accessibility features are crucial (ARIA labels, keyboard navigation)
+- Analytics events are set up for key user interactions
+
+## TODOs
+- Replace placeholder content with real data
+- Add actual resume PDF
+- Create social preview images
+- Set up real analytics
+- Replace placeholder logos in credibility strip
+- Deploy to production
+
+## Customization Guide
+- Personal info is stored in multiple components and needs to be updated
+- Design tokens are in globals.css as CSS variables
+- Layout structure follows the PRD's semantic HTML skeleton
