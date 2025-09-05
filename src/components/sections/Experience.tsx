@@ -92,8 +92,8 @@ function TimelineNode({ isActive, type, index }: TimelineNodeProps) {
       }`;
     } else if (type === 'education') {
       return `${baseClasses} ${isActive 
-        ? 'bg-gradient-to-br from-success to-success-dark border-success/30 shadow-lg shadow-success/25 scale-110' 
-        : 'bg-success/80 border-success/20 hover:scale-105'
+        ? 'bg-gradient-to-br from-accent to-accent-dark border-accent/30 shadow-lg shadow-accent/25 scale-110' 
+        : 'bg-accent/80 border-accent/20 hover:scale-105'
       }`;
     } else {
       return `${baseClasses} ${isActive 
@@ -214,19 +214,19 @@ function EducationCard({ item, index, isVisible, isActive }: EducationCardProps)
       
       <Card className={`
         group relative overflow-hidden backdrop-blur-xl bg-gradient-to-br from-surface/80 via-surface/60 to-surface/40 
-        border border-border/30 hover:border-success/40 transition-all duration-500 hover:shadow-2xl 
-        hover:shadow-success/10 hover:-translate-y-2 cursor-pointer
-        ${isActive ? 'ring-2 ring-success/30 shadow-xl shadow-success/10' : ''}
+        border border-border/30 hover:border-accent/40 transition-all duration-500 hover:shadow-2xl 
+        hover:shadow-accent/10 hover:-translate-y-2 cursor-pointer
+        ${isActive ? 'ring-2 ring-accent/30 shadow-xl shadow-accent/10' : ''}
       `}>
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-success/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         
         <CardHeader className="pb-4">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
             <div className="flex-1">
-              <CardTitle className="text-lg lg:text-xl font-bold text-text mb-2 group-hover:text-success transition-colors duration-300 leading-tight">
+              <CardTitle className="text-lg lg:text-xl font-bold text-text mb-2 group-hover:text-accent transition-colors duration-300 leading-tight">
                 {item.degree}
               </CardTitle>
-              <div className="flex items-center gap-3 text-success font-semibold mb-2">
+              <div className="flex items-center gap-3 text-accent font-semibold mb-2">
                 <Building2 className="w-4 h-4" />
                 <span className="text-base lg:text-lg">{item.institution}</span>
               </div>
@@ -238,7 +238,7 @@ function EducationCard({ item, index, isVisible, isActive }: EducationCardProps)
                 {item.period}
               </Badge>
               {item.gpa && (
-                <Badge className="bg-gradient-to-r from-success to-success-dark text-bg font-semibold px-3 py-1 rounded-full">
+                <Badge className="bg-gradient-to-r from-accent to-accent-dark text-bg font-semibold px-3 py-1 rounded-full">
                   <Award className="w-3 h-3 mr-1" />
                   GPA: {item.gpa}
                 </Badge>
@@ -257,7 +257,7 @@ function EducationCard({ item, index, isVisible, isActive }: EducationCardProps)
             <div className="space-y-3">
               {item.highlights.map((highlight, i) => (
                 <div key={i} className="flex items-start gap-3 group/highlight">
-                  <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0 group-hover/highlight:scale-125 transition-transform duration-200"></div>
+                  <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0 group-hover/highlight:scale-125 transition-transform duration-200"></div>
                   <span className="text-text-2 leading-relaxed text-sm lg:text-base group-hover/highlight:text-text transition-colors duration-200">
                     {highlight}
                   </span>
@@ -358,7 +358,7 @@ export function Experience() {
             className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-border via-accent/30 to-border overflow-hidden"
           >
             <div 
-              className="w-full bg-gradient-to-b from-accent via-accent-light to-success transition-all duration-1000 ease-out"
+              className="w-full bg-gradient-to-b from-accent via-accent-light to-accent transition-all duration-1000 ease-out"
               style={{ 
                 height: 'var(--timeline-progress, 0%)',
                 boxShadow: '0 0 20px rgba(0, 212, 255, 0.3)'
@@ -394,10 +394,10 @@ export function Experience() {
           {/* Education Section */}
           <div>
             <div className="flex items-center gap-4 mb-12 pl-20">
-              <div className="w-12 h-12 bg-gradient-to-br from-success to-success-dark rounded-full flex items-center justify-center shadow-lg shadow-success/25">
+              <div className="w-12 h-12 bg-gradient-to-br from-accent to-accent-dark rounded-full flex items-center justify-center shadow-lg shadow-accent/25">
                 <GraduationCap className="w-6 h-6 text-bg" />
               </div>
-              <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-success to-success-light bg-clip-text text-transparent">
+              <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent">
                 Education
               </h3>
             </div>
