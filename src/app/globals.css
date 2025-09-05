@@ -604,6 +604,28 @@
   }
 }
 
+@keyframes drawer-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes backdrop-fade-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
+}
+
 /* Animation classes */
 .fade-in-up {
   animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -665,10 +687,197 @@
   transform: rotateY(180deg);
 }
 
-/* Responsive breakpoints */
-@media (max-width: 768px) {
+/* Enhanced responsive typography and spacing */
+@media (max-width: 640px) {
   :root {
-    --spacing-section: 80px;
+    --spacing-section: 60px;
     --spacing-gutter: 16px;
+  }
+  
+  /* Mobile-optimized hero typography */
+  .hero-title-mobile {
+    font-size: clamp(28px, 8vw, 40px) !important;
+    line-height: 1.1 !important;
+  }
+  
+  .hero-subtitle-mobile {
+    font-size: clamp(16px, 4vw, 20px) !important;
+    line-height: 1.3 !important;
+  }
+  
+  .hero-description-mobile {
+    font-size: clamp(16px, 4vw, 18px) !important;
+    line-height: 1.5 !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --spacing-section: 100px;
+    --spacing-gutter: 20px;
+  }
+  
+  /* Tablet typography */
+  .hero-title-tablet {
+    font-size: clamp(35px, 6vw, 50px) !important;
+  }
+  
+  .hero-subtitle-tablet {
+    font-size: clamp(20px, 3vw, 24px) !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* Desktop typography */
+  .hero-title-desktop {
+    font-size: clamp(50px, 5vw, 80px) !important;
+  }
+  
+  .hero-subtitle-desktop {
+    font-size: clamp(24px, 2.5vw, 40px) !important;
+  }
+}
+
+/* Enhanced micro-interactions */
+@keyframes gentle-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.6), 0 0 30px rgba(0, 230, 118, 0.2);
+  }
+}
+
+@keyframes button-glow {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3), 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Enhanced button styles */
+.modern-button-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.modern-button-primary:hover::before {
+  left: 100%;
+}
+
+.modern-button-secondary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-button-secondary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.modern-button-secondary:hover::after {
+  opacity: 1;
+}
+
+/* Status badge enhancements */
+.status-badge {
+  animation: gentle-bounce 3s ease-in-out infinite;
+}
+
+.status-badge:hover {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Text gradient enhancements */
+.enhanced-text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 50%, var(--accent) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .status-badge,
+  .enhanced-text-gradient,
+  .modern-button-primary,
+  .modern-button-secondary {
+    animation: none !important;
+  }
+  
+  .modern-button-primary::before,
+  .modern-button-secondary::after {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .status-badge {
+    border-width: 2px;
+    background: var(--bg);
+  }
+  
+  .modern-button-primary,
+  .modern-button-secondary {
+    border-width: 2px;
+  }
+}
+
+/* Focus improvements for accessibility */
+.focus-enhanced:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* Touch target improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .modern-button-primary,
+  .modern-button-secondary {
+    min-height: 48px;
+    min-width: 48px;
   }
 }

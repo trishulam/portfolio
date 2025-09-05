@@ -45,71 +45,103 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="gradient-bg min-h-screen flex items-center relative overflow-hidden"
-      aria-label="Hero"
+      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-bg via-bg-secondary to-surface"
+      aria-label="Hero section - Vamsi Krishna Portfolio"
     >
-      {/* Enhanced background decorative elements */}
+      {/* Modern Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-accent/10 to-accent/5 rounded-full blur-3xl animate-float glow-accent"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-success/10 to-success/5 rounded-full blur-3xl animate-float glow-success" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-accent/8 via-success/6 to-accent/8 rounded-full blur-3xl animate-rotate-slow"></div>
-        <div className="absolute inset-0 pattern-dots opacity-20"></div>
+        {/* Primary gradient orb */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-accent/20 via-accent/10 to-transparent rounded-full blur-3xl animate-float opacity-60"></div>
+        
+        {/* Secondary gradient orb */}
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-success/15 via-success/8 to-transparent rounded-full blur-3xl animate-float opacity-50" style={{ animationDelay: '2s' }}></div>
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.15) 1px, transparent 0)`,
+          backgroundSize: '24px 24px'
+        }}></div>
+        
+        {/* Accent glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-transparent via-accent/5 to-transparent rounded-full blur-3xl animate-pulse opacity-30"></div>
       </div>
 
-      <div className="container-custom relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8 fade-in-up">
-          {/* Status badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-success/15 to-success/10 border border-success/30 rounded-full text-success-light text-sm font-medium backdrop-blur-sm glow-success fade-in-scale">
-            <div className="w-2 h-2 bg-success rounded-full animate-bounce-subtle shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></div>
-            Available for opportunities
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+        <div className="max-w-5xl mx-auto">
+          {/* Status Badge */}
+          <div className="flex justify-center mb-8 sm:mb-12 fade-in-scale">
+            <div
+              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-success/10 via-success/5 to-success/10 border border-success/20 rounded-full text-success-light font-medium backdrop-blur-md shadow-lg hover:shadow-success/20 transition-all duration-300 hover:scale-105 group"
+              role="status"
+              aria-label="Current availability status"
+            >
+              <div className="relative">
+                <div className="w-2.5 h-2.5 bg-success rounded-full animate-pulse shadow-[0_0_12px_rgba(0,230,118,0.6)]"></div>
+                <div className="absolute inset-0 w-2.5 h-2.5 bg-success rounded-full animate-ping opacity-75"></div>
+              </div>
+              <span className="text-sm sm:text-base font-semibold tracking-wide">Available for opportunities</span>
+            </div>
           </div>
 
-          {/* Main heading */}
-          <div className="space-y-6">
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight slide-in-left">
-              Hi, I&rsquo;m{' '}
-              <span className="text-gradient animate-gradient">
-                Vamsi Krishna
-              </span>
-            </h1>
-            
-            <div className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-text leading-relaxed slide-in-right">
-              AI Engineer & Full-Stack Developer
+          {/* Main Content */}
+          <div className="text-center space-y-8 sm:space-y-12">
+            {/* Heading */}
+            <div className="space-y-6 sm:space-y-8">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tight slide-in-left">
+                <span className="block text-text mb-2 sm:mb-4">Hi, I&rsquo;m</span>
+                <span className="block text-gradient animate-gradient bg-gradient-to-r from-accent via-accent-light to-accent bg-clip-text text-transparent">
+                  Vamsi Krishna
+                </span>
+              </h1>
+              
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-text-2 leading-tight slide-in-right max-w-4xl mx-auto">
+                AI Engineer & Full-Stack Developer
+              </h2>
             </div>
             
-            <p className="text-lg lg:text-xl text-text-2 max-w-3xl mx-auto leading-relaxed fade-in-up">
-              I build <span className="text-accent-light font-semibold">production-grade AI systems</span> and{' '}
-              <span className="text-success-light font-semibold">agentic RAG solutions</span> that deliver real business impact.
-              Ready to ship from day one.
-            </p>
+            {/* Description */}
+            <div className="max-w-4xl mx-auto fade-in-up">
+              <p className="text-base sm:text-lg md:text-xl lg:text-xl text-text-2 leading-relaxed font-light">
+                I build{' '}
+                <span className="text-accent-light font-semibold px-2 py-1 bg-accent/10 rounded-md border border-accent/20">
+                  production-grade AI systems
+                </span>
+                {' '}and{' '}
+                <span className="text-success-light font-semibold px-2 py-1 bg-success/10 rounded-md border border-success/20">
+                  agentic RAG solutions
+                </span>
+                {' '}that deliver real business impact. Ready to ship from day one.
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-8 sm:pt-12 fade-in-up">
+              <Button
+                size="lg"
+                onClick={handleEmailClick}
+                className="group relative overflow-hidden bg-gradient-to-r from-accent to-accent-dark hover:from-accent-light hover:to-accent text-bg font-semibold px-8 py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-accent/25 transition-all duration-300 hover:scale-105 hover:-translate-y-1 border-0 min-w-[200px]"
+                aria-label="Send email to connect with Vamsi Krishna"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <Mail className="w-5 h-5 mr-3 relative z-10" />
+                <span className="relative z-10">Let&rsquo;s Connect</span>
+              </Button>
+
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={handleResumeClick}
+                className="group relative overflow-hidden border-2 border-accent/30 bg-gradient-to-r from-surface/80 to-surface/60 text-accent hover:text-accent-light hover:border-accent/50 font-semibold px-8 py-4 text-base sm:text-lg rounded-xl backdrop-blur-sm shadow-lg hover:shadow-accent/15 transition-all duration-300 hover:scale-105 hover:-translate-y-1 min-w-[200px]"
+                aria-label="Download and view resume PDF"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <Download className="w-5 h-5 mr-3 relative z-10" />
+                <span className="relative z-10">View Resume</span>
+              </Button>
+            </div>
           </div>
-
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 fade-in-up">
-            <Button
-              size="lg"
-              onClick={handleEmailClick}
-              className="cursor-pointer bg-gradient-to-r from-accent to-accent-dark hover:from-accent-light hover:to-accent text-bg font-semibold px-8 py-4 text-base btn-hover glow-accent"
-            >
-              <Mail className="w-5 h-5 mr-2" />
-              Let&rsquo;s Connect
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={handleResumeClick}
-              className="cursor-pointer border-2 border-accent/40 bg-gradient-to-r from-surface/50 to-surface/30 text-accent hover:bg-gradient-to-r hover:from-accent/10 hover:to-accent/5 hover:text-accent-light hover:border-accent/60 font-semibold px-8 py-4 text-base btn-hover backdrop-blur-sm"
-            >
-              <Download className="w-5 h-5 mr-2" />
-              View Resume
-            </Button>
-          </div>
-
         </div>
       </div>
-
     </section>
   );
 }

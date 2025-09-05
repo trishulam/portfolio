@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Environment files
+.env*
+
+# Specific files with linting issues (optional - uncomment if needed)
+# src/components/sections/Contact.tsx
+# src/components/sections/FeaturedWork.tsx
+# src/components/sections/Hero.tsx

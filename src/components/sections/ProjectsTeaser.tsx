@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Play, Code, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, Code, FileText, ArrowRight, Sparkles, Eye, Github } from 'lucide-react';
 
 interface Project {
   id: string;
@@ -75,13 +75,17 @@ const projects: Project[] = [
   }
 ];
 
+const categoryColors = {
+  "Full-stack": "bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-cyan-400 border-cyan-500/30",
+  "RAG": "bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-pink-400 border-pink-500/30",
+  "AI": "bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-emerald-400 border-emerald-500/30",
+  "Research": "bg-gradient-to-r from-orange-500/20 to-yellow-500/20 text-yellow-400 border-yellow-500/30",
+  "Competition": "bg-gradient-to-r from-red-500/20 to-rose-500/20 text-rose-400 border-rose-500/30",
+  "Leadership": "bg-gradient-to-r from-indigo-500/20 to-violet-500/20 text-violet-400 border-violet-500/30"
+};
+
 export function ProjectsTeaser() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsPerView, setCardsPerView] = useState(1);
-  const [isClient, setIsClient] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const handleCTAClick = (action: string, projectId: string) => {
     // Analytics tracking
@@ -96,209 +100,177 @@ export function ProjectsTeaser() {
     }
   };
 
-  const updateScrollButtons = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
-  const updateCardsPerView = () => {
-    if (typeof window === 'undefined') return;
-    const newCardsPerView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
-    setCardsPerView(newCardsPerView);
-  };
-
-  const scrollToCard = (direction: 'left' | 'right') => {
-    if (!scrollContainerRef.current) return;
-    
-    const cardWidth = scrollContainerRef.current.clientWidth / cardsPerView;
-    const scrollAmount = cardWidth * cardsPerView;
-    
-    const newScrollLeft = direction === 'left'
-      ? scrollContainerRef.current.scrollLeft - scrollAmount
-      : scrollContainerRef.current.scrollLeft + scrollAmount;
-    
-    scrollContainerRef.current.scrollTo({
-      left: newScrollLeft,
-      behavior: 'smooth'
-    });
-
-    // Update current index for indicators
-    const newIndex = Math.round(newScrollLeft / cardWidth);
-    setCurrentIndex(Math.max(0, Math.min(newIndex, projects.length - cardsPerView)));
-  };
-
-  useEffect(() => {
-    // Set client-side flag
-    setIsClient(true);
-    updateCardsPerView();
-  }, []);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || !isClient) return;
-
-    const handleScroll = () => {
-      updateScrollButtons();
-      
-      // Update current index based on scroll position
-      const cardWidth = container.clientWidth / cardsPerView;
-      const newIndex = Math.round(container.scrollLeft / cardWidth);
-      setCurrentIndex(Math.max(0, Math.min(newIndex, projects.length - cardsPerView)));
-    };
-
-    const handleResize = () => {
-      updateScrollButtons();
-      updateCardsPerView();
-    };
-
-    container.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    
-    // Initial update
-    updateScrollButtons();
-
-    return () => {
-      container.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [cardsPerView, isClient]);
-
-  const getMaxIndex = () => {
-    return Math.max(0, projects.length - cardsPerView);
-  };
-
   return (
     <section
       id="projects"
-      className="min-h-screen bg-gradient-to-b from-bg-secondary/30 to-surface/20 pt-20 pb-8 relative"
+      className="min-h-screen relative overflow-hidden"
       aria-label="Projects Showcase"
     >
-      {/* Background pattern */}
-      <div className="absolute inset-0 pattern-dots opacity-5 pointer-events-none"></div>
-      <div className="container-custom">
-        <div className="text-center mb-12 fade-in-up">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-gradient">
+      {/* Enhanced Background with Multiple Layers */}
+      <div className="absolute inset-0 bg-gradient-to-br from-bg-secondary/40 via-surface/20 to-bg-secondary/60"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-accent/5 to-transparent"></div>
+      <div className="absolute inset-0 pattern-dots opacity-[0.03] pointer-events-none"></div>
+      
+      {/* Floating Orbs for Visual Interest */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-accent/10 rounded-full blur-3xl animate-float"></div>
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-success/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-warn/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
+
+      <div className="container-custom relative z-10 pt-20 pb-16">
+        {/* Enhanced Header Section */}
+        <div className="text-center mb-16 fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent/10 to-success/10 border border-accent/20 mb-6 backdrop-blur-sm">
+            <Sparkles className="w-4 h-4 text-accent animate-pulse" />
+            <span className="text-sm font-medium text-accent">Featured Work</span>
+          </div>
+          
+          <h2 className="text-4xl lg:text-6xl font-bold mb-6 text-gradient enhanced-text-gradient">
             Projects & Experiments
           </h2>
-          <p className="text-lg text-text-2 max-w-2xl mx-auto">
+          
+          <p className="text-lg lg:text-xl text-text-2 max-w-3xl mx-auto leading-relaxed">
             A collection of side projects, experiments, and technical demonstrations 
             spanning AI, full-stack development, and mobile applications.
           </p>
         </div>
 
-        {/* Horizontal Scrollable Projects Container */}
-        <div className="relative max-w-7xl mx-auto">
-          {/* Navigation Arrows - Hidden on mobile */}
-          <button
-            onClick={() => scrollToCard('left')}
-            disabled={!canScrollLeft}
-            className="hidden md:flex absolute -left-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full surface surface-hover nav-arrow items-center justify-center"
-            aria-label="Scroll to previous projects"
-          >
-            <ChevronLeft className="w-6 h-6 text-accent" />
-          </button>
-
-          <button
-            onClick={() => scrollToCard('right')}
-            disabled={!canScrollRight}
-            className="hidden md:flex absolute -right-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full surface surface-hover nav-arrow items-center justify-center"
-            aria-label="Scroll to next projects"
-          >
-            <ChevronRight className="w-6 h-6 text-accent" />
-          </button>
-
-          {/* Scrollable Container */}
-          <div
-            ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide horizontal-scroll px-4 md:px-0 py-2"
-          >
+        {/* Enhanced Projects Grid */}
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 px-4 lg:px-0">
             {projects.map((project, index) => (
               <div
                 key={project.id}
-                className="flex-none w-full md:w-1/2 lg:w-1/3 horizontal-scroll-item"
+                className="fade-in-scale"
+                style={{ animationDelay: `${index * 0.1}s` }}
+                onMouseEnter={() => setHoveredCard(project.id)}
+                onMouseLeave={() => setHoveredCard(null)}
               >
-                <Card 
-                  className="surface surface-hover card-hover h-full flex flex-col transition-all duration-300 fade-in-scale"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                <Card className={`
+                  h-full flex flex-col transition-all duration-500 ease-out group cursor-pointer
+                  bg-gradient-to-br from-surface/60 via-surface/80 to-surface-2/60
+                  backdrop-blur-xl border border-border/30 rounded-2xl
+                  hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/10
+                  hover:-translate-y-2 hover:scale-[1.02]
+                  ${hoveredCard === project.id ? 'ring-2 ring-accent/20' : ''}
+                `}
+                  style={{
+                    background: hoveredCard === project.id
+                      ? 'linear-gradient(145deg, rgba(19, 26, 47, 0.9) 0%, rgba(26, 33, 56, 0.95) 100%)'
+                      : undefined
+                  }}
                 >
-                  <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <CardTitle className="text-lg lg:text-xl text-gradient leading-tight flex-1">
+                  {/* Compact Card Header */}
+                  <CardHeader className="pb-3 pt-5 px-5 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-success/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div className="flex items-start justify-between gap-3 relative z-10">
+                      <CardTitle className="text-lg lg:text-xl font-bold text-gradient leading-tight flex-1 group-hover:scale-105 transition-transform duration-300">
                         {project.title}
                       </CardTitle>
-                      <Badge variant="secondary" className="text-xs shrink-0">
+                      <Badge
+                        className={`
+                          text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 backdrop-blur-sm
+                          transition-all duration-300 group-hover:scale-110
+                          ${categoryColors[project.category as keyof typeof categoryColors] || 'bg-surface-2/50 text-text-2 border-border/30'}
+                        `}
+                      >
                         {project.category}
                       </Badge>
                     </div>
                   </CardHeader>
 
-                  <CardContent className="flex-1 flex flex-col space-y-4">
-                    <p className="text-sm text-text-2 leading-relaxed flex-1">
+                  <CardContent className="flex-1 flex flex-col px-5 pb-5 pt-0">
+                    {/* Compact Description */}
+                    <p className="text-sm text-text-2 leading-relaxed mb-4 group-hover:text-text transition-colors duration-300 line-clamp-3">
                       {project.description}
                     </p>
 
-                    {/* Tech Tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.slice(0, 4).map((tag, tagIndex) => (
-                        <span 
-                          key={tagIndex} 
-                          className="tech-tag text-xs" 
-                          style={{ animationDelay: `${tagIndex * 0.05}s` }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                      {project.tags.length > 4 && (
-                        <span className="tech-tag text-xs opacity-70">
-                          +{project.tags.length - 4} more
-                        </span>
-                      )}
+                    {/* Compact Tech Tags */}
+                    <div className="mb-4">
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.tags.slice(0, 4).map((tag, tagIndex) => (
+                          <span
+                            key={tagIndex}
+                            className="
+                              px-2.5 py-1 text-xs font-medium rounded-md
+                              bg-gradient-to-r from-surface-2/50 to-surface-3/50
+                              text-text-2 border border-border/30
+                              backdrop-blur-sm transition-all duration-300
+                              hover:border-accent/40 hover:text-accent hover:scale-105
+                              group-hover:border-border/50
+                            "
+                            style={{ animationDelay: `${tagIndex * 0.05}s` }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                        {project.tags.length > 4 && (
+                          <span className="px-2.5 py-1 text-xs font-medium rounded-md bg-gradient-to-r from-muted/50 to-muted-light/50 text-text-3 border border-border/20 backdrop-blur-sm">
+                            +{project.tags.length - 4}
+                          </span>
+                        )}
+                      </div>
                     </div>
 
-                    {/* CTAs */}
-                    <div className="flex gap-2 pt-2 mt-auto">
+                    {/* Compact CTA Buttons */}
+                    <div className="flex gap-2 mt-auto">
                       {project.demoUrl && (
                         <Button
                           size="sm"
-                          variant="outline"
-                          className="flex-1 text-xs border-border/40 text-text-2 hover:bg-success/5 hover:border-success/50 hover:text-success transition-all duration-200 hover:shadow-sm"
+                          className="
+                            flex-1 h-9 text-xs font-semibold rounded-lg
+                            bg-gradient-to-r from-success/10 to-success/20
+                            text-success border border-success/30
+                            hover:from-success/20 hover:to-success/30 hover:border-success/50
+                            hover:shadow-lg hover:shadow-success/20 hover:-translate-y-0.5
+                            transition-all duration-300 group/btn backdrop-blur-sm
+                          "
                           onClick={() => {
                             window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
                             handleCTAClick('demo', project.id);
                           }}
                         >
-                          <Play className="w-3 h-3 mr-1" />
+                          <Eye className="w-3.5 h-3.5 mr-1.5 group-hover/btn:scale-110 transition-transform" />
                           Demo
                         </Button>
                       )}
                       {project.codeUrl && (
                         <Button
                           size="sm"
-                          variant="outline"
-                          className="flex-1 text-xs border-border/40 text-text-2 hover:bg-accent/5 hover:border-accent/50 hover:text-accent transition-all duration-200 hover:shadow-sm"
+                          className="
+                            flex-1 h-9 text-xs font-semibold rounded-lg
+                            bg-gradient-to-r from-accent/10 to-accent/20
+                            text-accent border border-accent/30
+                            hover:from-accent/20 hover:to-accent/30 hover:border-accent/50
+                            hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5
+                            transition-all duration-300 group/btn backdrop-blur-sm
+                          "
                           onClick={() => {
                             window.open(project.codeUrl, '_blank', 'noopener,noreferrer');
                             handleCTAClick('code', project.id);
                           }}
                         >
-                          <Code className="w-3 h-3 mr-1" />
+                          <Github className="w-3.5 h-3.5 mr-1.5 group-hover/btn:scale-110 transition-transform" />
                           Code
                         </Button>
                       )}
                       {project.slidesUrl && (
                         <Button
                           size="sm"
-                          variant="outline"
-                          className="flex-1 text-xs border-border/40 text-text-2 hover:bg-warn/5 hover:border-warn/50 hover:text-warn transition-all duration-200 hover:shadow-sm"
+                          className="
+                            flex-1 h-9 text-xs font-semibold rounded-lg
+                            bg-gradient-to-r from-warn/10 to-warn/20
+                            text-warn border border-warn/30
+                            hover:from-warn/20 hover:to-warn/30 hover:border-warn/50
+                            hover:shadow-lg hover:shadow-warn/20 hover:-translate-y-0.5
+                            transition-all duration-300 group/btn backdrop-blur-sm
+                          "
                           onClick={() => {
                             window.open(project.slidesUrl, '_blank', 'noopener,noreferrer');
                             handleCTAClick('slides', project.id);
                           }}
                         >
-                          <FileText className="w-3 h-3 mr-1" />
+                          <FileText className="w-3.5 h-3.5 mr-1.5 group-hover/btn:scale-110 transition-transform" />
                           Slides
                         </Button>
                       )}
@@ -308,52 +280,6 @@ export function ProjectsTeaser() {
               </div>
             ))}
           </div>
-
-          {/* Scroll Indicators */}
-          {isClient && (
-            <div className="flex justify-center mt-8 gap-2">
-              {Array.from({ length: getMaxIndex() + 1 }, (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    if (scrollContainerRef.current) {
-                      const cardWidth = scrollContainerRef.current.clientWidth / cardsPerView;
-                      const scrollLeft = index * cardWidth;
-                      scrollContainerRef.current.scrollTo({
-                        left: scrollLeft,
-                        behavior: 'smooth'
-                      });
-                      setCurrentIndex(index);
-                    }
-                  }}
-                  className={`scroll-indicator w-2 h-2 rounded-full ${
-                    index === currentIndex
-                      ? 'active w-8'
-                      : 'bg-border hover:bg-border-light'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* GitHub link */}
-        <div className="text-center mt-12 fade-in-up" style={{ animationDelay: '0.4s' }}>
-          <p className="text-text-2 mb-4">
-            Explore more projects and contributions on GitHub
-          </p>
-          <Button
-            variant="outline"
-            onClick={() => {
-              window.open('https://github.com/trishulam', '_blank', 'noopener,noreferrer');
-              handleCTAClick('github', 'all-projects');
-            }}
-            className="border-accent/40 text-accent hover:bg-accent/10 hover:border-accent/60 btn-hover"
-          >
-            <ExternalLink className="w-4 h-4 mr-2" />
-            Visit GitHub Profile
-          </Button>
         </div>
       </div>
     </section>
