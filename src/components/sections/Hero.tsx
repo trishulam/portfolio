@@ -119,24 +119,26 @@ export function Hero() {
               <Button
                 size="lg"
                 onClick={handleEmailClick}
-                className="group relative overflow-hidden bg-gradient-to-r from-accent to-accent-dark hover:from-accent-light hover:to-accent text-bg font-semibold px-8 py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-accent/25 transition-all duration-300 hover:scale-105 hover:-translate-y-1 border-0 min-w-[200px]"
+                className="group relative overflow-hidden bg-gradient-to-r from-accent to-accent-dark hover:from-accent-light hover:to-accent text-bg font-semibold px-8 py-4 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl hover:shadow-accent/30 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 border-0 min-w-[200px] modern-button-primary"
                 aria-label="Send email to connect with Vamsi Krishna"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <Mail className="w-5 h-5 mr-3 relative z-10" />
-                <span className="relative z-10">Let&rsquo;s Connect</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/25 via-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 animate-shimmer"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-light/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <Mail className="w-5 h-5 mr-3 relative z-10 group-hover:animate-bounce-subtle transition-transform duration-300" />
+                <span className="relative z-10 tracking-wide">Let&rsquo;s Connect</span>
               </Button>
 
               <Button
                 size="lg"
                 variant="outline"
                 onClick={handleResumeClick}
-                className="group relative overflow-hidden border-2 border-accent/30 bg-gradient-to-r from-surface/80 to-surface/60 text-accent hover:text-accent-light hover:border-accent/50 font-semibold px-8 py-4 text-base sm:text-lg rounded-xl backdrop-blur-sm shadow-lg hover:shadow-accent/15 transition-all duration-300 hover:scale-105 hover:-translate-y-1 min-w-[200px]"
+                className="group relative overflow-hidden border-2 border-accent/30 bg-gradient-to-r from-surface/80 to-surface/60 text-accent hover:text-accent-light hover:border-accent/60 font-semibold px-8 py-4 text-base sm:text-lg rounded-xl backdrop-blur-sm shadow-lg hover:shadow-xl hover:shadow-accent/20 transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 min-w-[200px] modern-button-secondary"
                 aria-label="Download and view resume PDF"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <Download className="w-5 h-5 mr-3 relative z-10" />
-                <span className="relative z-10">View Resume</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/8 to-accent/15 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-45deg from-transparent via-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <Download className="w-5 h-5 mr-3 relative z-10 group-hover:animate-bounce-subtle transition-transform duration-300" />
+                <span className="relative z-10 tracking-wide">View Resume</span>
               </Button>
             </div>
           </div>
