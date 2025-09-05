@@ -103,6 +103,8 @@ function TimelineNode({ isActive, type, index }: TimelineNodeProps) {
     }
   };
 
+  
+
   const getIcon = () => {
     const iconClasses = "w-5 h-5 text-bg drop-shadow-sm";
     if (type === 'founder') return <Rocket className={iconClasses} />;
