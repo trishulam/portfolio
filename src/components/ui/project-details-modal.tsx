@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -48,8 +48,6 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [lightboxIndex, setLightboxIndex] = useState<number>(0);
 
-  if (!project) return null;
-
   const openLightbox = (image: string, index: number) => {
     setLightboxImage(image);
     setLightboxIndex(index);
@@ -60,8 +58,8 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
     setLightboxIndex(0);
   };
 
-  const navigateLightbox = (direction: 'prev' | 'next') => {
-    if (!project.additionalImages) return;
+  const navigateLightbox = useCallback((direction: 'prev' | 'next') => {
+    if (!project?.additionalImages) return;
     
     const newIndex = direction === 'next' 
       ? (lightboxIndex + 1) % project.additionalImages.length
@@ -69,7 +67,7 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
     
     setLightboxIndex(newIndex);
     setLightboxImage(project.additionalImages[newIndex]);
-  };
+  }, [project?.additionalImages, lightboxIndex]);
 
   // Keyboard navigation for lightbox
   useEffect(() => {
@@ -87,7 +85,9 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxImage, lightboxIndex]);
+  }, [lightboxImage, lightboxIndex, navigateLightbox]);
+
+  if (!project) return null;
 
   const handleCTAClick = (action: string, projectId: string) => {
     // Analytics tracking
