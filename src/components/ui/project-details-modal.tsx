@@ -16,6 +16,8 @@ interface ProjectDetailsModalProps {
     demoUrl?: string;
     codeUrl?: string;
     slidesUrl?: string;
+    heroImage?: string;
+    additionalImages?: string[];
     features: string[];
     architecture: string[];
     impact: string[];
@@ -63,15 +65,31 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
         {/* Header with image preview and basic info */}
         <div className="relative">
           {/* Large Image Preview */}
-          <div className={`h-48 rounded-lg bg-gradient-to-br ${categoryGradients[project.category as keyof typeof categoryGradients]} border border-border/20 flex items-center justify-center mb-6 overflow-hidden`}>
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-accent/20 to-success/20 flex items-center justify-center">
-                {project.category === 'Full-stack' && <Code className="w-8 h-8 text-cyan-400" />}
-                {project.category === 'RAG' && <Sparkles className="w-8 h-8 text-pink-400" />}
-                {project.category === 'AI' && <Zap className="w-8 h-8 text-emerald-400" />}
+          <div className="h-48 rounded-lg border border-border/20 mb-6 overflow-hidden relative">
+            {project.heroImage ? (
+              <div className="relative h-full w-full">
+                <img 
+                  src={project.heroImage} 
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/30"></div>
+                <div className="absolute bottom-4 left-4">
+                  <p className="text-sm text-white/90 font-medium">{project.category} Project</p>
+                </div>
               </div>
-              <p className="text-sm text-text-2">{project.category} Project</p>
-            </div>
+            ) : (
+              <div className={`h-full bg-gradient-to-br ${categoryGradients[project.category as keyof typeof categoryGradients]} flex items-center justify-center`}>
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-accent/20 to-success/20 flex items-center justify-center">
+                    {project.category === 'Full-stack' && <Code className="w-8 h-8 text-cyan-400" />}
+                    {project.category === 'RAG' && <Sparkles className="w-8 h-8 text-pink-400" />}
+                    {project.category === 'AI' && <Zap className="w-8 h-8 text-emerald-400" />}
+                  </div>
+                  <p className="text-sm text-text-2">{project.category} Project</p>
+                </div>
+              </div>
+            )}
           </div>
 
           <DialogHeader className="mb-6">
@@ -134,6 +152,33 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
 
         {/* Detailed Content */}
         <div className="space-y-8">
+          {/* Project Gallery */}
+          {project.additionalImages && project.additionalImages.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold text-accent mb-3 flex items-center gap-2">
+                <Eye className="w-5 h-5" />
+                Project Gallery
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {project.additionalImages.map((image, index) => (
+                  <div key={index} className="relative group">
+                    <img 
+                      src={image} 
+                      alt={`${project.title} - Image ${index + 1}`}
+                      className="w-full h-48 object-cover rounded-lg border border-border/30 hover:border-accent/40 transition-colors duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <p className="text-white text-sm font-medium">
+                        {index === 0 ? "Network Graph Visualization" : "Entity Relationships"}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Technologies */}
           <div>
             <h3 className="text-lg font-semibold text-accent mb-3 flex items-center gap-2">

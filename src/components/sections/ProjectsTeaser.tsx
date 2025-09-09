@@ -18,6 +18,7 @@ interface Project {
   codeUrl?: string;
   slidesUrl?: string;
   heroImage?: string;
+  additionalImages?: string[];
   features: string[];
   architecture: string[];
   impact: string[];
@@ -86,7 +87,7 @@ const projects: Project[] = [
     category: "RAG",
     demoUrl: undefined,
     codeUrl: "https://github.com/trishulam/NER-RAG",
-    heroImage: "/projects/ner-rag-hero.png",
+    heroImage: "/ner1.png",
     features: [
       "Advanced Named Entity Recognition with custom models",
       "Interactive graph visualization of entity relationships",
@@ -122,7 +123,8 @@ const projects: Project[] = [
       { name: "Pinecone", description: "Vector database for semantic similarity search" },
       { name: "Docker", description: "Containerization for microservices deployment" },
       { name: "Pydantic", description: "Data validation and parsing library" }
-    ]
+    ],
+    additionalImages: ["/ner1.png", "/ner2.png"]
   },
   {
     id: "gesturize",
@@ -324,17 +326,37 @@ export function ProjectsTeaser() {
                   }}
                 >
                   {/* Large Image Preview */}
-                  <div className={`h-48 bg-gradient-to-br ${categoryGradients[project.category as keyof typeof categoryGradients]} flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-transform duration-300`}>
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-accent/20 to-success/20 flex items-center justify-center">
-                        {project.category === 'Full-stack' && <Code className="w-8 h-8 text-cyan-400" />}
-                        {project.category === 'RAG' && <Sparkles className="w-8 h-8 text-pink-400" />}
-                        {project.category === 'AI' && <Zap className="w-8 h-8 text-emerald-400" />}
+                  <div className={`h-48 relative overflow-hidden group-hover:scale-105 transition-transform duration-300`}>
+                    {project.heroImage ? (
+                      // Show actual project image if available
+                      <div className="relative h-full w-full">
+                        <img 
+                          src={project.heroImage} 
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/30"></div>
+                        <div className="absolute top-4 right-4">
+                          <Badge className={`${categoryColors[project.category as keyof typeof categoryColors]} text-xs`}>
+                            {project.category}
+                          </Badge>
+                        </div>
                       </div>
-                      <Badge className={`${categoryColors[project.category as keyof typeof categoryColors]} text-xs`}>
-                        {project.category}
-                      </Badge>
-                    </div>
+                    ) : (
+                      // Fallback to gradient with icon
+                      <div className={`h-full bg-gradient-to-br ${categoryGradients[project.category as keyof typeof categoryGradients]} flex items-center justify-center`}>
+                        <div className="text-center">
+                          <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-accent/20 to-success/20 flex items-center justify-center">
+                            {project.category === 'Full-stack' && <Code className="w-8 h-8 text-cyan-400" />}
+                            {project.category === 'RAG' && <Sparkles className="w-8 h-8 text-pink-400" />}
+                            {project.category === 'AI' && <Zap className="w-8 h-8 text-emerald-400" />}
+                          </div>
+                          <Badge className={`${categoryColors[project.category as keyof typeof categoryColors]} text-xs`}>
+                            {project.category}
+                          </Badge>
+                        </div>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-success/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
 
