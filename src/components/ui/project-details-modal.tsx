@@ -319,12 +319,12 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
         </div>
       </DialogContent>
 
-      {/* Lightbox Overlay */}
-      {lightboxImage && (
-        <div 
-          className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={closeLightbox}
-        >
+       {/* Lightbox Overlay */}
+       {lightboxImage && (
+         <div 
+           className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+           onClick={closeLightbox}
+         >
           <div className="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
             {/* Close Button */}
             <button
