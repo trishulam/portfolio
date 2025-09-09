@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Code, Zap, AlertTriangle, CheckCircle, Github, Eye, FileText, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Sparkles, Code, Zap, AlertTriangle, CheckCircle, Github, Eye, FileText } from 'lucide-react';
 
 interface ProjectDetailsModalProps {
   project: {
@@ -45,48 +44,6 @@ const categoryGradients = {
 };
 
 export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetailsModalProps) {
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-  const [lightboxIndex, setLightboxIndex] = useState<number>(0);
-
-  const openLightbox = (image: string, index: number) => {
-    setLightboxImage(image);
-    setLightboxIndex(index);
-  };
-
-  const closeLightbox = () => {
-    setLightboxImage(null);
-    setLightboxIndex(0);
-  };
-
-  const navigateLightbox = useCallback((direction: 'prev' | 'next') => {
-    if (!project?.additionalImages) return;
-    
-    const newIndex = direction === 'next' 
-      ? (lightboxIndex + 1) % project.additionalImages.length
-      : (lightboxIndex - 1 + project.additionalImages.length) % project.additionalImages.length;
-    
-    setLightboxIndex(newIndex);
-    setLightboxImage(project.additionalImages[newIndex]);
-  }, [project?.additionalImages, lightboxIndex]);
-
-  // Keyboard navigation for lightbox
-  useEffect(() => {
-    if (!lightboxImage) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeLightbox();
-      } else if (e.key === 'ArrowRight') {
-        navigateLightbox('next');
-      } else if (e.key === 'ArrowLeft') {
-        navigateLightbox('prev');
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxImage, lightboxIndex, navigateLightbox]);
-
   if (!project) return null;
 
   const handleCTAClick = (action: string, projectId: string) => {
@@ -204,26 +161,17 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {project.additionalImages.map((image, index) => (
-                  <div 
-                    key={index} 
-                    className="relative group cursor-pointer"
-                    onClick={() => openLightbox(image, index)}
-                  >
+                  <div key={index} className="relative group">
                     <img 
                       src={image} 
                       alt={`${project.title} - Image ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-lg border border-border/30 hover:border-accent/40 transition-all duration-300 hover:scale-105"
+                      className="w-full h-48 object-cover rounded-lg border border-border/30 hover:border-accent/40 transition-colors duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <p className="text-white text-sm font-medium">
                         {index === 0 ? "Network Graph Visualization" : "Entity Relationships"}
                       </p>
-                    </div>
-                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="bg-black/50 rounded-full p-1.5">
-                        <Eye className="w-4 h-4 text-white" />
-                      </div>
                     </div>
                   </div>
                 ))}
@@ -318,63 +266,6 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
           </div>
         </div>
       </DialogContent>
-
-       {/* Lightbox Overlay */}
-       {lightboxImage && (
-         <div 
-           className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-           onClick={closeLightbox}
-         >
-          <div className="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
-            {/* Close Button */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 rounded-full p-3 text-white transition-colors duration-300"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            {/* Navigation Buttons */}
-            {project.additionalImages && project.additionalImages.length > 1 && (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigateLightbox('prev');
-                  }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 rounded-full p-3 text-white transition-colors duration-300"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigateLightbox('next');
-                  }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 rounded-full p-3 text-white transition-colors duration-300"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </>
-            )}
-
-            {/* Large Image */}
-            <img 
-              src={lightboxImage} 
-              alt={`${project.title} - Full Size`}
-              className="max-w-full max-h-full object-contain rounded-lg"
-              onClick={(e) => e.stopPropagation()}
-            />
-
-            {/* Image Counter */}
-            {project.additionalImages && project.additionalImages.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 rounded-full px-4 py-2 text-white text-sm">
-                {lightboxIndex + 1} / {project.additionalImages.length}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </Dialog>
   );
 }
