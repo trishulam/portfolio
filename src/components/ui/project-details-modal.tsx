@@ -1,9 +1,11 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Code, Zap, AlertTriangle, CheckCircle, Github, Eye, FileText } from 'lucide-react';
+import { Sparkles, Code, Zap, AlertTriangle, CheckCircle, Github, Eye, FileText, ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 
 interface ProjectDetailsModalProps {
   project: {
@@ -44,6 +46,173 @@ const categoryGradients = {
 };
 
 export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetailsModalProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [allImages, setAllImages] = useState<string[]>([]);
+  
+  // Reset lightbox state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setLightboxOpen(false);
+      setCurrentImageIndex(0);
+    }
+  }, [isOpen]);
+
+  // Combine hero image and additional images for the lightbox (avoid duplicates)
+  useEffect(() => {
+    if (!project) {
+      setAllImages([]);
+      return;
+    }
+    
+    const images: string[] = [];
+    const imageSet = new Set<string>();
+    
+    // Add hero image first
+    if (project.heroImage) {
+      images.push(project.heroImage);
+      imageSet.add(project.heroImage);
+    }
+    
+    // Add additional images (skip duplicates)
+    if (project.additionalImages) {
+      project.additionalImages.forEach(img => {
+        if (!imageSet.has(img)) {
+          images.push(img);
+          imageSet.add(img);
+        }
+      });
+    }
+    
+    setAllImages(images);
+  }, [project]);
+
+  const openLightbox = (imageIndex: number) => {
+    console.log('Opening lightbox with image index:', imageIndex); // Debug log
+    setCurrentImageIndex(imageIndex);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    console.log('Closing lightbox'); // Debug log
+    setLightboxOpen(false);
+  };
+
+  const navigateImage = useCallback((direction: 'prev' | 'next') => {
+    console.log('Navigate:', direction, 'Current:', currentImageIndex, 'Total:', allImages.length); // Debug log
+    
+    setCurrentImageIndex((prev) => {
+      if (direction === 'prev') {
+        const newIndex = prev > 0 ? prev - 1 : allImages.length - 1;
+        console.log('Previous - New index:', newIndex); // Debug log
+        return newIndex;
+      } else {
+        const newIndex = prev < allImages.length - 1 ? prev + 1 : 0;
+        console.log('Next - New index:', newIndex); // Debug log
+        return newIndex;
+      }
+    });
+  }, [allImages.length, currentImageIndex]);
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!lightboxOpen) return;
+      
+      console.log('Key pressed:', e.key); // Debug log
+      
+      switch (e.key) {
+        case 'Escape':
+          e.preventDefault();
+          closeLightbox();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          console.log('Left arrow - navigating previous'); // Debug log
+          navigateImage('prev');
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          console.log('Right arrow - navigating next'); // Debug log
+          navigateImage('next');
+          break;
+      }
+    };
+
+    if (lightboxOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lightboxOpen, navigateImage]);
+
+  // Helper function to get descriptive labels for each image
+  const getImageLabel = (projectId: string, imageIndex: number, hasHeroImage: boolean): string => {
+    // For GuruHeal project
+    if (projectId === 'guruheal') {
+      // Adjust index if hero image is counted separately
+      const adjustedIndex = hasHeroImage ? imageIndex - 1 : imageIndex;
+      
+      // If it's the hero image
+      if (imageIndex === 0 && hasHeroImage) {
+        return "AI Chat Interface";
+      }
+      
+      // For the other images
+      switch (adjustedIndex) {
+        case 0: return "Product Card";
+        case 1: return "In Line Product Recommendations";
+        case 2: return "Language Picker";
+        case 3: return "Product List";
+        case 4: return "Web Search Results with Citations";
+        case 5: return "Model Response PDF";
+        default: return `GuruHeal Screenshot ${adjustedIndex + 1}`;
+      }
+    }
+    
+    // For NER-RAG project
+    if (projectId === 'ner-rag-system') {
+      if (imageIndex === 0 && hasHeroImage) {
+        return "Entity Graph Visualization";
+      }
+      return imageIndex === 0 || (hasHeroImage && imageIndex === 1) ? 
+        "Network Graph Visualization" : "Entity Relationships Panel";
+    }
+    
+    // For Gesturize project
+    if (projectId === 'gesturize') {
+      // Adjust index if hero image is counted separately
+      const adjustedIndex = hasHeroImage ? imageIndex - 1 : imageIndex;
+      
+      // If it's the hero image
+      if (imageIndex === 0 && hasHeroImage) {
+        return "Gesture Recognition Dashboard";
+      }
+      
+      // For the other images
+      switch (adjustedIndex) {
+        case 0: return "Hand Gesture Detection";
+        case 1: return "Landmark Tracking Visualization";
+        case 2: return "Presentation Control Interface";
+        case 3: return "Gesture Classification Model";
+        case 4: return "Mobile Streaming App";
+        case 5: return "Multi-Gesture Recognition";
+        case 6: return "System Architecture Diagram";
+        case 7: return "Classroom Implementation";
+        case 8: return "Performance Analytics";
+        default: return `Gesturize Screenshot ${adjustedIndex + 1}`;
+      }
+    }
+    
+    // For other projects
+    if (imageIndex === 0 && hasHeroImage) {
+      return "Hero Image";
+    }
+    return `Project Screenshot ${imageIndex}`;
+  };
+  
   if (!project) return null;
 
   const handleCTAClick = (action: string, projectId: string) => {
@@ -64,18 +233,32 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-surface/95 via-surface-2/95 to-surface/95 backdrop-blur-xl border border-border/30">
         {/* Header with image preview and basic info */}
         <div className="relative">
-          {/* Large Image Preview */}
-          <div className="h-48 rounded-lg border border-border/20 mb-6 overflow-hidden relative">
+          {/* Large Image Preview - Clickable */}
+          <div 
+            className="h-48 rounded-lg border border-border/20 mb-6 overflow-hidden relative group cursor-pointer"
+            onClick={() => project.heroImage && openLightbox(0)}
+          >
             {project.heroImage ? (
               <div className="relative h-full w-full">
                 <img 
                   src={project.heroImage} 
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/30"></div>
+                
+                {/* Zoom overlay on hover */}
+                <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
+                    <ZoomIn className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                
                 <div className="absolute bottom-4 left-4">
                   <p className="text-sm text-white/90 font-medium">{project.category} Project</p>
+                </div>
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-xs text-white/80 bg-black/50 px-2 py-1 rounded">Click to expand</p>
                 </div>
               </div>
             ) : (
@@ -153,24 +336,38 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
         {/* Detailed Content */}
         <div className="space-y-8">
           {/* Project Gallery */}
-          {project.additionalImages && project.additionalImages.length > 0 && (
+          {allImages.length > 1 && (
             <div>
               <h3 className="text-lg font-semibold text-accent mb-3 flex items-center gap-2">
                 <Eye className="w-5 h-5" />
                 Project Gallery
+                <span className="text-sm text-text-3 font-normal ml-2">Click to expand</span>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {project.additionalImages.map((image, index) => (
-                  <div key={index} className="relative group">
+                {allImages.map((image, index) => (
+                  <div 
+                    key={index} 
+                    className="relative group cursor-pointer"
+                    onClick={() => openLightbox(index)}
+                  >
                     <img 
                       src={image} 
                       alt={`${project.title} - Image ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-lg border border-border/30 hover:border-accent/40 transition-colors duration-300"
+                      className="w-full h-48 object-cover rounded-lg border border-border/30 hover:border-accent/40 transition-all duration-300 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Zoom icon overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-black/50 backdrop-blur-sm rounded-full p-3">
+                        <ZoomIn className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                    
+                    {/* Image label */}
                     <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <p className="text-white text-sm font-medium">
-                        {index === 0 ? "Network Graph Visualization" : "Entity Relationships"}
+                        {getImageLabel(project.id, index, !!project.heroImage)}
                       </p>
                     </div>
                   </div>
@@ -266,6 +463,93 @@ export function ProjectDetailsModal({ project, isOpen, onClose }: ProjectDetails
           </div>
         </div>
       </DialogContent>
+      
+      {/* Debug: lightboxOpen={lightboxOpen.toString()}, allImages.length={allImages.length} */}
+      {/* Full-Screen Image Lightbox Portal - Renders outside dialog */}
+      {lightboxOpen && allImages.length > 0 && typeof window !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-xl flex items-center justify-center">
+          {/* Close button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-6 right-6 z-50 p-3 bg-black/60 hover:bg-black/80 text-white rounded-full transition-colors duration-200 shadow-2xl"
+            aria-label="Close lightbox"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          
+          {/* Navigation buttons */}
+          {allImages.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('Previous button clicked'); // Debug log
+                  navigateImage('prev');
+                }}
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-40 p-4 bg-black/60 hover:bg-black/80 text-white rounded-full transition-colors duration-200 shadow-2xl"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </button>
+              
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  console.log('Next button clicked'); // Debug log
+                  navigateImage('next');
+                }}
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-40 p-4 bg-black/60 hover:bg-black/80 text-white rounded-full transition-colors duration-200 shadow-2xl"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-8 h-8" />
+              </button>
+            </>
+          )}
+          
+          {/* Current image - True full screen */}
+          <div 
+            className="w-full h-full flex items-center justify-center p-8 cursor-pointer"
+            onClick={(e) => {
+              // Close on background click, but not on image click
+              if (e.target === e.currentTarget) {
+                closeLightbox();
+              }
+            }}
+          >
+            <img
+              src={allImages[currentImageIndex]}
+              alt={`${project.title} - Image ${currentImageIndex + 1}`}
+              className="max-w-[95vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              style={{
+                width: 'auto',
+                height: 'auto'
+              }}
+            />
+          </div>
+          
+          {/* Image counter and info */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40">
+            <div className="bg-black/80 backdrop-blur-sm text-white px-6 py-3 rounded-full text-sm font-medium shadow-2xl">
+              <span className="text-accent font-bold">{currentImageIndex + 1}</span> / {allImages.length}
+              <span className="mx-3">•</span>
+              <span>
+                {getImageLabel(project.id, currentImageIndex, !!project.heroImage)}
+              </span>
+              {/* Remove debug info for production */}
+            </div>
+          </div>
+          
+          {/* Instructions */}
+          <div className="absolute top-6 left-6 z-40">
+            <div className="bg-black/60 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm shadow-2xl">
+              <p>Use ← → keys to navigate • ESC to close • Click outside to close</p>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </Dialog>
   );
 }

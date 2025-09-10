@@ -40,7 +40,8 @@ const projects: Project[] = [
     category: "Full-stack",
     demoUrl: "https://v0-guruheal-presentation.vercel.app/",
     codeUrl: "https://github.com/trishulam/Guruheal",
-    heroImage: "/projects/guruheal-hero.png",
+    additionalImages: ["/guru_hero.png", "/guru1.png", "/guru2.png", "/guru3.png", "/guru4.png", "/guru5.png", "/guru6.png"],
+    heroImage: "/hero_guru.png",
     features: [
       "Multilingual AI chat interface with PydanticAI integration",
       "Real-time web search with citation tracking",
@@ -87,7 +88,7 @@ const projects: Project[] = [
     category: "RAG",
     demoUrl: undefined,
     codeUrl: "https://github.com/trishulam/NER-RAG",
-    heroImage: "/ner1.png",
+    heroImage: "/ner_hero.png",
     features: [
       "Advanced Named Entity Recognition with custom models",
       "Interactive graph visualization of entity relationships",
@@ -135,7 +136,8 @@ const projects: Project[] = [
     category: "AI",
     demoUrl: undefined,
     codeUrl: "https://github.com/trishulam/Gesturize",
-    heroImage: "/projects/gesturize-hero.png",
+    heroImage: "/hero_ges.png",
+    additionalImages: ["/ges_1.png", "/ges_2.png", "/ges_3.png", "/ges_4.png", "/ges_5.png", "/ges_6.png", "/ges_7.png", "/ges_8.png", "/ges_9.png"],
     features: [
       "Real-time hand gesture recognition with 95%+ accuracy",
       "Hands-free presentation control and navigation",
