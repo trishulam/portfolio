@@ -41,7 +41,13 @@ export function About() {
           <li key={a.what} className="reveal grid gap-1 py-3 sm:grid-cols-[9.5rem_1fr] sm:gap-8">
             <p className="label pt-1">{a.when}</p>
             <p className="text-ink">
-              {a.what}
+              {a.url ? (
+                <a href={a.url} className="prose-link" target="_blank" rel="noopener noreferrer">
+                  {a.what}
+                </a>
+              ) : (
+                a.what
+              )}
               {a.detail && <span className="text-ink-3"> · {a.detail}</span>}
             </p>
           </li>

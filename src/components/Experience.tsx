@@ -24,6 +24,15 @@ export function Experience() {
                   </li>
                 ))}
               </ul>
+              {r.links && (
+                <p className="mt-3 flex gap-4 text-sm">
+                  {r.links.map((l) => (
+                    <a key={l.url} href={l.url} className="prose-link" target="_blank" rel="noopener noreferrer">
+                      {l.label} ↗
+                    </a>
+                  ))}
+                </p>
+              )}
             </div>
           </li>
         ))}
