@@ -6,9 +6,9 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/vamsikrishnank/",
   resume: "/resume.pdf",
   location: "Santa Clara, CA",
-  tagline: "I build ML systems and AI agents.",
+  tagline: "I keep models useful after they ship.",
   intro:
-    "Master's student in Data Science at Penn. Spent summer 2026 at Google on YouTube Trust & Safety, keeping multi-policy safety classifiers current with weight merging instead of replay buffers. Now at Amazon AGI on the model-customization platform inside SageMaker.",
+    "I'm a master's student at Penn who likes the unglamorous half of ML: what happens to a model after launch. Last summer at Google I worked on keeping YouTube's safety classifiers current as content drifts, using weight merging instead of replay buffers. This fall I'm at Amazon AGI, on the platform people use to customize models. I grew up in Chennai around ship brokers, which is why my side projects keep drifting back to the sea.",
   status: "Open to 2027 new grad roles in ML systems, AI infrastructure, and agents.",
 };
 
@@ -19,11 +19,13 @@ export const now = [
   { label: "Thinking about", value: "Continual learning, model merging, agents that survive production" },
 ];
 
-export const stats = [
-  { value: "1st / 61", label: "Wharton Hack-AI-thon 2026" },
-  { value: "+8.5 pp", label: "Recall at 95% precision" },
-  { value: "4x → 1x", label: "Serving cost, merged" },
-  { value: "2 + 1", label: "Papers, one under review" },
+export const facts = [
+  { label: "Now", value: "SDE intern at Amazon AGI, building the model-customization platform in SageMaker." },
+  { label: "Last summer", value: "Google, YouTube Trust & Safety. Weight merging so safety classifiers learn new content without forgetting old policies." },
+  { label: "On the side", value: "An AI agent that lives in a ship broker's inbox: reads vessel and cargo emails, finds matches, drafts replies. Design partner: my family's broking desk." },
+  { label: "Before this", value: "Founded Vessel Match, a maritime matching startup. It failed. I'd rather talk about that than the wins." },
+  { label: "Background", value: "Two undergrad degrees at once, mechanical engineering and data science, while working full time. Then a year as a software engineer in Singapore." },
+  { label: "Ask me about", value: "Model merging, agent memory, freight markets, or the Indo-European origins debate." },
 ];
 
 export interface Role {
