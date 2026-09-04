@@ -215,6 +215,7 @@ export interface School {
 export const education: School[] = [
   { school: "University of Pennsylvania", degree: "MSE Data Science", period: "2025 – 27", note: "GPA 3.91" },
   { school: "IIT Madras", degree: "BS Data Science & Applications", period: "2021 – 25", note: "GPA 3.91" },
+  { school: "SSN College of Engineering", degree: "B.E. Mechanical Engineering", period: "2020 – 24", note: "Department topper, CGPA 9.21" },
   { school: "NUS School of Computing", degree: "Deep learning program", period: "2023", note: "Best performer" },
 ];
 
