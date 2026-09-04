@@ -20,12 +20,12 @@ export const now = [
 ];
 
 export const facts = [
-  { label: "Now", value: "SDE intern at Amazon AGI, building the model-customization platform in SageMaker." },
-  { label: "Last summer", value: "Google, YouTube Trust & Safety. Weight merging so safety classifiers learn new content without forgetting old policies." },
-  { label: "On the side", value: "An AI agent that lives in a ship broker's inbox: reads vessel and cargo emails, finds matches, drafts replies. Design partner: my family's broking desk." },
-  { label: "Before this", value: "Founded Vessel Match, a maritime matching startup. It failed. I'd rather talk about that than the wins." },
-  { label: "Background", value: "Two undergrad degrees at once, mechanical engineering and data science, while working full time. Then a year as a software engineer in Singapore." },
-  { label: "Ask me about", value: "Model merging, agent memory, freight markets, or the Indo-European origins debate." },
+  { label: "Building", value: "An agent that lives in a ship broker's inbox and works the deals. A real broking desk is the first user." },
+  { label: "Believe", value: "The interesting problems start after the model ships. Drift, forgetting, serving cost." },
+  { label: "Learned most from", value: "A startup that didn't find product-market fit." },
+  { label: "Reading", value: "Philosophy, ancient Indian history, and a lot of science fiction. Best thing I've read on the sea: The Ocean of Churn by Sanjeev Sanyal." },
+  { label: "Long game", value: "Build something of our own. Big tech is where I'm learning to do it properly." },
+  { label: "Ask me about", value: "Model merging, continual learning, AI alignment, or recursive self-improvement." },
 ];
 
 export interface Role {

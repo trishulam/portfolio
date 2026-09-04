@@ -24,7 +24,7 @@ export function Hero() {
 
       <dl className="divide-y divide-rule border-y border-rule lg:mt-3">
         {facts.map((f) => (
-          <div key={f.label} className="grid grid-cols-[6.5rem_1fr] gap-4 py-4 sm:grid-cols-[7.5rem_1fr]">
+          <div key={f.label} className="grid grid-cols-[7rem_1fr] gap-4 py-4 sm:grid-cols-[8.5rem_1fr]">
             <dt className="label pt-1">{f.label}</dt>
             <dd className="text-[0.95rem] leading-relaxed text-ink">{f.value}</dd>
           </div>
