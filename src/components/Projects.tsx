@@ -2,12 +2,12 @@ import { projects } from "@/lib/content";
 
 export function Projects() {
   return (
-    <section id="projects" className="shell scroll-mt-24 pt-14 sm:pt-16" aria-labelledby="projects-label">
+    <section id="projects" className="mx-auto w-full max-w-[1200px] px-5 sm:px-10 xl:px-0 scroll-mt-24 pt-14 sm:pt-16" aria-labelledby="projects-label">
       <div className="mb-6 flex items-baseline justify-between">
         <p id="projects-label" className="label">Projects</p>
         <p className="text-[0.9rem] text-ink-3">Hackathons, coursework, weekends</p>
       </div>
-      <ul className="cells sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-px border border-rule bg-rule [&>*]:bg-paper sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((p) => (
           <li key={p.name} className="reveal flex min-h-[210px] flex-col gap-2.5 p-6">
             <p className="label">{p.kindOverride ?? `${p.kind} · ${p.when}`}</p>

@@ -2,7 +2,7 @@ import { site } from "@/lib/content";
 
 export function Contact() {
   return (
-    <section id="contact" className="shell scroll-mt-24 pt-16 sm:pt-24" aria-labelledby="contact-label">
+    <section id="contact" className="mx-auto w-full max-w-[1200px] px-5 sm:px-10 xl:px-0 scroll-mt-24 pt-16 sm:pt-24" aria-labelledby="contact-label">
       <div className="grid gap-6 border-t border-rule pt-12 sm:grid-cols-[360px_1fr] sm:gap-12">
         <p id="contact-label" className="label">Contact</p>
         <div>

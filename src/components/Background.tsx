@@ -11,7 +11,7 @@ function Col({ id, label, children }: { id?: string; label: string; children: Re
 
 export function Background() {
   return (
-    <section className="shell grid gap-12 pt-14 sm:grid-cols-3 sm:gap-10 sm:pt-16" aria-label="Papers, education, and awards">
+    <section className="mx-auto w-full max-w-[1200px] px-5 sm:px-10 xl:px-0 grid gap-12 pt-14 sm:grid-cols-3 sm:gap-10 sm:pt-16" aria-label="Papers, education, and awards">
       <Col id="papers" label="Papers">
         {research.map((p) => (
           <div key={p.title} className="reveal">
