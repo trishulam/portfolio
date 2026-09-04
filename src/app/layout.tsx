@@ -1,79 +1,73 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { Newsreader, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { site } from "@/lib/content";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-  preload: true,
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "600"],
+const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-plex-mono", 
+  weight: ["400", "500"],
+  variable: "--font-jetbrains",
   display: "swap",
-  preload: true,
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-  ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000');
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
-const siteDescription = "ML systems and AI agents. MSE Data Science at Penn; Google (YouTube Trust & Safety GenAI) and Amazon AGI intern; first-author work on continual learning and model merging for safety classifiers.";
+const description =
+  "ML systems and AI agents. MSE Data Science at Penn; Google (YouTube Trust & Safety GenAI) and Amazon AGI intern; first-author work on continual learning and model merging for safety classifiers.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Vamsi Krishna | ML Systems & AI Agents",
-  description: siteDescription,
-  keywords: ["Vamsi Krishna", "Machine Learning Engineer", "AI Agents", "Model Merging", "Continual Learning", "Safety Classifiers", "JAX", "Python", "UPenn"],
-  authors: [{ name: "Vamsi Krishna N K" }],
-  creator: "Vamsi Krishna N K",
+  title: `${site.name} | ML Systems & AI Agents`,
+  description,
+  authors: [{ name: site.fullName }],
+  creator: site.fullName,
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: "Vamsi Krishna | ML Systems & AI Agents",
-    description: siteDescription,
-    siteName: "Vamsi Krishna",
+    title: `${site.name} | ML Systems & AI Agents`,
+    description,
+    siteName: site.name,
   },
-  twitter: {
-    card: "summary",
-    title: "Vamsi Krishna | ML Systems & AI Agents",
-    description: siteDescription,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  twitter: { card: "summary", title: `${site.name} | ML Systems & AI Agents`, description },
+  robots: { index: true, follow: true },
 };
 
 export function generateViewport() {
-  return {
-    width: 'device-width',
-    initialScale: 1,
-  }
+  return { width: "device-width", initialScale: 1 };
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const themeInit = `(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}if(t==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();`;
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#0B1020" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="alternate icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
-      <body
-        className={`${inter.variable} ${ibmPlexMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <a href="#main" className="skip-to-content">
+      <body className={`${newsreader.variable} ${inter.variable} ${jetbrains.variable}`}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-paper focus:px-3 focus:py-2 focus:text-ink"
+        >
           Skip to content
         </a>
         {children}

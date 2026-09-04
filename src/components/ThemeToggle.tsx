@@ -1,52 +1,31 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Moon, Sun } from 'lucide-react';
+import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    // Check for saved theme preference or default to dark
-    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
-    const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const initialTheme = savedTheme || systemPreference;
-    
-    setTheme(initialTheme);
-    document.documentElement.setAttribute('data-theme', initialTheme);
-    document.documentElement.className = initialTheme;
+    setDark(document.documentElement.classList.contains("dark"));
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    document.documentElement.className = newTheme;
-    
-    // Analytics event
-    if (typeof window !== 'undefined' && (window as unknown as { gtag: (event: string, name: string, params: Record<string, string>) => void }).gtag) {
-      (window as unknown as { gtag: (event: string, name: string, params: Record<string, string>) => void }).gtag('event', 'theme_toggle', {
-        event_category: 'ui_interaction',
-        event_label: newTheme
-      });
-    }
+  const toggle = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    try {
+      localStorage.setItem("theme", next ? "dark" : "light");
+    } catch {}
   };
 
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={toggleTheme}
-      className="w-10 h-10 p-0 rounded-full border border-border hover:border-accent"
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+      className="label rounded-full border border-rule px-3 py-1.5 text-ink-2 transition-colors hover:border-ink-3 hover:text-ink"
     >
-      {theme === 'dark' ? (
-        <Sun className="w-4 h-4" />
-      ) : (
-        <Moon className="w-4 h-4" />
-      )}
-    </Button>
+      {dark ? "Light" : "Dark"}
+    </button>
   );
 }

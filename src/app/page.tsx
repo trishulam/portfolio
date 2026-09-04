@@ -1,58 +1,27 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-// Note: UI components are imported in individual section components
-
-// Components
-import { Navigation } from '@/components/Navigation';
-import { Hero } from '@/components/sections/Hero';
-import { FeaturedWork } from '@/components/sections/FeaturedWork';
-import { ProjectsTeaser } from '@/components/sections/ProjectsTeaser';
-import { QuickProof } from '@/components/sections/QuickProof';
-import { Research } from '@/components/sections/Research';
-import { Experience } from '@/components/sections/Experience';
-import { About } from '@/components/sections/About';
-import { Contact } from '@/components/sections/Contact';
-import { Footer } from '@/components/Footer';
+import { Nav } from "@/components/Nav";
+import { Hero } from "@/components/Hero";
+import { Experience } from "@/components/Experience";
+import { Research } from "@/components/Research";
+import { Projects } from "@/components/Projects";
+import { About } from "@/components/About";
+import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
+import { Reveal } from "@/components/Reveal";
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState('home');
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: '-50% 0px -50% 0px',
-      }
-    );
-
-    // Observe all sections
-    const sections = document.querySelectorAll('section[id]');
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <>
-      <Navigation activeSection={activeSection} />
-      <main id="main" className="min-h-screen">
+      <Nav />
+      <main id="main" className="mx-auto max-w-3xl px-5 sm:px-6">
         <Hero />
-        <About />
-        {/* <FeaturedWork /> */}
-        <ProjectsTeaser />
-        <QuickProof />
-        <Research />
         <Experience />
+        <Research />
+        <Projects />
+        <About />
         <Contact />
+        <Footer />
       </main>
-      <Footer />
+      <Reveal />
     </>
   );
 }
