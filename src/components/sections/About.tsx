@@ -3,23 +3,25 @@
 const skills = [
   "Python",
   "TypeScript",
-  "Next.js",
+  "JAX",
+  "PyTorch",
   "FastAPI",
+  "Next.js",
+  "LangGraph",
+  "Google ADK",
   "PostgreSQL",
+  "Neo4j",
   "Docker",
   "Kubernetes",
-  "TensorFlow",
-  "PydanticAI",
-  "Pinecone",
-  "React Native",
-  "Azure DevOps"
+  "AWS",
+  "GCP"
 ];
 
 const specializations = [
-  'Knowledge Graph-RAG Systems',
-  'Agentic AI Workflows',
-  'Microservices Architecture',
-  'Full-Stack AI Applications'
+  'Model Merging & Continual Learning',
+  'Safety Classifiers & LLM Raters',
+  'Agentic Systems',
+  'ML Infrastructure'
 ];
 
 export function About() {
@@ -51,19 +53,19 @@ export function About() {
               <div className="space-y-6 slide-in-left">
                 {/* Enhanced paragraph styling with perfect readability */}
                 <p className="text-lg lg:text-xl text-text-2 leading-relaxed max-w-none">
-                  I&rsquo;m a collaborative engineer who builds{' '}
+                  I&rsquo;m a master&rsquo;s student in Data Science at{' '}
                   <span className="text-accent-light font-semibold bg-accent/10 px-2 py-1 rounded-lg">
-                    production-grade AI systems
+                    UPenn
                   </span>
-                  —from agentic workflows to RAG platforms. Currently pursuing my Master&rsquo;s at UPenn while working as a Software Engineer at S2T AI, where I develop Knowledge Graph-RAG microservices and Agentic AI Chat Assistants.
+                  , graduating May 2027. This summer I interned at Google on YouTube Trust &amp; Safety, where I studied how to keep multi-policy safety classifiers current as content drifts: sequential fine-tuning with zero replay, then weight merging. That work became a first-author paper, now under review at a NeurIPS 2026 workshop. This fall I&rsquo;m at Amazon AGI, working on the model-customization platform inside SageMaker.
                 </p>
                 
                 <p className="text-lg lg:text-xl text-text-2 leading-relaxed max-w-none">
-                  My experience spans from{' '}
+                  Before grad school I worked as a software engineer at S2T AI in Singapore, where I built the company&rsquo;s first agentic AI assistant and a knowledge-graph RAG service, and I{' '}
                   <span className="text-success-light font-semibold bg-success/10 px-2 py-1 rounded-lg">
-                    founding and leading Vessel Match
-                  </span>{' '}
-                  (a maritime marketplace startup) to building speech-to-speech translation tools for the Indian Parliament. I&rsquo;ve published research in ML and supply chain optimization.
+                    founded Vessel Match
+                  </span>
+                  , a maritime matching startup incubated at IIT Madras. It didn&rsquo;t find product-market fit, and I learned more from that than from anything that worked. I still build on weekends: three hackathon wins in the last year, mostly around real-time multimodal agents.
                 </p>
               </div>
             </div>
@@ -103,7 +105,7 @@ export function About() {
                 
                 <blockquote className="relative z-10 text-center px-8 lg:px-16 py-4">
                   <p className="text-lg lg:text-xl italic text-text-2 leading-relaxed font-light">
-                    I approach complex AI systems with the same methodical curiosity I had solving puzzles as a kid—breaking down intricate problems into manageable components until elegant solutions emerge.
+                    I like problems where the model is only half the answer and the other half is serving cost, drift, and what happens at the operating point.
                   </p>
                 </blockquote>
               </div>

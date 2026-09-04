@@ -11,28 +11,28 @@ interface Metric {
 
 const metrics: Metric[] = [
   {
-    value: "15%",
-    label: "Audio spoofing detection accuracy improvement",
-    description: "Enhanced at S2T AI",
-    icon: "📈"
+    value: "+8.5 pp",
+    label: "Recall at 95% precision over per-policy experts",
+    description: "Joint multi-task safety encoder, Google internship",
+    icon: "🎯"
   },
   {
-    value: "₹7L+",
-    label: "Seed funding + AWS credits secured",
-    description: "For Vessel Match startup",
-    icon: "💰"
+    value: "4x → 1x",
+    label: "Serving cost, matching a 4-model ensemble with one merged model",
+    description: "Weight-merged causal decoders, Google internship",
+    icon: "⚡"
   },
   {
-    value: "500+",
-    label: "Hours of video processed",
-    description: "Speech translation for Indian Parliament",
-    icon: "🎥"
+    value: "1st / 61",
+    label: "Wharton Hack-AI-thon 2026, plus Best Overall at HackPrinceton (195 teams)",
+    description: "WayWise and MindPad",
+    icon: "🏆"
   },
   {
-    value: "8",
-    label: "Kubernetes microservices deployed",
-    description: "Production AI systems at S2T AI",
-    icon: "⚙️"
+    value: "3 + 1",
+    label: "Peer-reviewed papers, one more under review at a NeurIPS 2026 workshop",
+    description: "IEEE GCAT 2023, IEEE CSNT 2025, ICCV 2025 RIWM",
+    icon: "📄"
   }
 ];
 
@@ -79,11 +79,10 @@ export function QuickProof() {
         {/* Header */}
         <div className="text-center mb-20">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 enhanced-text-gradient">
-            Proven Impact
+            Numbers I can stand behind
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-text-2 max-w-3xl mx-auto leading-relaxed">
-            Measurable results from recent projects, demonstrating technical excellence
-            and business impact across different domains.
+            A few measured results. Each one links back to a paper, a leaderboard, or an internal eval I ran myself.
           </p>
         </div>
 
@@ -178,7 +177,7 @@ export function QuickProof() {
           <div className="inline-flex items-center gap-2 bg-surface/50 backdrop-blur-sm border border-border/30 rounded-full px-4 py-2">
             <span className="text-xs text-accent">*</span>
             <p className="text-xs lg:text-sm text-text-2">
-              Metrics represent safe, publicly shareable data from recent projects
+              Google numbers are from experiments on open datasets and open Gemma weights, as reported in the paper
             </p>
           </div>
         </div>

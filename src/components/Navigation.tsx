@@ -6,6 +6,7 @@ import {
   User,
   Grid3X3,
   Briefcase,
+  FileText,
   Mail,
   X,
   ChevronRight
@@ -20,6 +21,7 @@ const navItems = [
   { id: 'home', label: 'Home', icon: Home },
   { id: 'about', label: 'About', icon: User },
   { id: 'projects', label: 'Projects', icon: Grid3X3 },
+  { id: 'research', label: 'Research', icon: FileText },
   { id: 'experience', label: 'Experience', icon: Briefcase },
   { id: 'contact', label: 'Contact', icon: Mail },
 ];

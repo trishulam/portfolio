@@ -5,9 +5,9 @@ import { Download, Mail } from 'lucide-react';
 
 export function Hero() {
   const handleEmailClick = () => {
-    const subject = encodeURIComponent('Let&rsquo;s Connect - Portfolio Inquiry');
-    const body = encodeURIComponent('Hi Vamsi,\n\nI came across your portfolio and would love to discuss opportunities. Looking forward to connecting!\n\nBest regards,');
-    window.location.href = `mailto:nkvk@seas.upenn.edu?subject=${subject}&body=${body}`;
+    const subject = encodeURIComponent('Hello from your portfolio');
+    const body = encodeURIComponent('Hi Vamsi,\n\nI came across your portfolio and wanted to reach out.\n\nBest regards,');
+    window.location.href = `mailto:nkvk@engineering.upenn.edu?subject=${subject}&body=${body}`;
     
     // Analytics event
     if (typeof window !== 'undefined' && (window as unknown as { gtag?: Function }).gtag) {
@@ -79,7 +79,7 @@ export function Hero() {
                 <div className="w-2.5 h-2.5 bg-success rounded-full animate-pulse shadow-[0_0_12px_rgba(0,230,118,0.6)]"></div>
                 <div className="absolute inset-0 w-2.5 h-2.5 bg-success rounded-full animate-ping opacity-75"></div>
               </div>
-              <span className="text-sm sm:text-base font-semibold tracking-wide">Available for opportunities</span>
+              <span className="text-sm sm:text-base font-semibold tracking-wide">Open to 2027 new grad roles</span>
             </div>
           </div>
 
@@ -95,22 +95,22 @@ export function Hero() {
               </h1>
               
               <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold text-text-2 leading-tight slide-in-right max-w-4xl mx-auto">
-                AI Engineer & Full-Stack Developer
+                I build ML systems and AI agents
               </h2>
             </div>
             
             {/* Description */}
             <div className="max-w-4xl mx-auto fade-in-up">
               <p className="text-base sm:text-lg md:text-xl lg:text-xl text-text-2 leading-relaxed font-light">
-                I build{' '}
+                MSE Data Science at Penn. Spent summer 2026 at{' '}
                 <span className="text-accent-light font-semibold px-2 py-1 bg-accent/10 rounded-md border border-accent/20">
-                  production-grade AI systems
+                  Google
                 </span>
-                {' '}and{' '}
+                {' '}building safety classifiers for YouTube&rsquo;s generative AI, now at{' '}
                 <span className="text-success-light font-semibold px-2 py-1 bg-success/10 rounded-md border border-success/20">
-                  agentic RAG solutions
+                  Amazon AGI
                 </span>
-                {' '}that deliver real business impact. Ready to ship from day one.
+                {' '}on ML infrastructure. I care about continual learning, model merging, and agents that hold up in production.
               </p>
             </div>
 

@@ -30,7 +30,7 @@ const socialLinks = [
   {
     name: 'Email',
     icon: Mail,
-    url: 'mailto:nkvk@seas.upenn.edu',
+    url: 'mailto:nkvk@engineering.upenn.edu',
     ariaLabel: 'Send me an email',
     description: 'Direct contact'
   }

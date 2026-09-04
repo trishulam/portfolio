@@ -25,12 +25,28 @@ interface EducationItem {
 
 const workExperience: ExperienceItem[] = [
   {
+    period: "Sep 2026 - Dec 2026",
+    title: "Software Development Engineer Intern, ML",
+    organization: "Amazon AGI",
+    location: "Sunnyvale, CA",
+    type: "work",
+    description: "Working with the AWS SageMaker team on a model-customization platform: production workflows for fine-tuning, preference optimization, prompt engineering, and custom eval pipelines, agnostic to model, inference stack, and compute."
+  },
+  {
+    period: "May 2026 - Aug 2026",
+    title: "Software Engineering Intern",
+    organization: "Google - YouTube Trust & Safety, GenAI Guardrails",
+    location: "Mountain View, CA",
+    type: "work",
+    description: "Compared 9 architectures and 8 weight-merging methods (JAX, Gemma 3) for multi-policy safety classifiers. A joint multi-task encoder with a shared violative head beat per-policy experts by 8.5 pp recall at 95% precision and removed an aggregation layer from serving. Built a zero-replay continual-learning recipe (sequential fine-tune, then SLERP merge) for adapting to new content distributions without forgetting, and an agent that runs it end to end. Written up as a first-author workshop paper."
+  },
+  {
     period: "Dec 2024 - Aug 2025",
     title: "Software Engineer",
     organization: "S2T AI - AI Powered Investigations",
     location: "Singapore",
     type: "work",
-    description: "Building Knowledge Graph-RAG microservices and Agentic AI Chat Assistants with Generative UI. Developing AI ETL services and React microfrontends."
+    description: "Built the company's first agentic AI assistant, from zero to customers: multi-agent orchestration, tool calling, and a generative UI. Also built a knowledge-graph RAG service over Neo4j and an AI ETL service for natural-language queries on unstructured data. Shipped ~8 Kubernetes microservices through Azure DevOps and improved audio spoofing detection by 15%."
   },
   {
     period: "May 2024 - Jun 2025",
@@ -38,40 +54,48 @@ const workExperience: ExperienceItem[] = [
     organization: "Vessel Match",
     location: "Chennai, India",
     type: "founder",
-    description: "Founded AI platform automating vessel/cargo matching. Secured INR 700,000 seed funding and processed 200+ vessels daily. Incubated at Nirmaan IIT Madras."
+    description: "AI platform matching vessels with cargo and automating pre-fixture work. Event-driven microservices on AWS (Lambda, SQS, EC2) with FastAPI and Next.js. Trials processed 200+ vessels and 150+ cargo listings a day, five industry partnerships, INR 7L seed funding, incubated at Nirmaan IIT Madras. No product-market fit in the end; I led all engineering and learned what I should have built instead."
   },
   {
     period: "Feb 2024 - May 2024",
     title: "AI Engineer Intern",
     organization: "32Mins Digital Consultancy Services",
-    location: "Chennai, India", 
+    location: "Chennai, India",
     type: "work",
-    description: "Built Speech-to-Speech Translation tool for 12 Indic languages. Processed 500+ hours of video, cutting dubbing time from months to days."
+    description: "AI dubbing system for 12 Indic languages. Processed 500+ hours of content, including a pilot on parliamentary footage."
   }
 ];
 
 const education: EducationItem[] = [
   {
     period: "Aug 2025 - May 2027",
-    degree: "Master of Science in Engineering (MSE), Data Science",
+    degree: "MSE, Data Science",
     institution: "University of Pennsylvania",
-    location: "Philadelphia, PA, USA",
-    highlights: ["Teaching Assistant for CIS 5150 - Linear Algebra & Optimization", "Courses: AI, Big Data Analytics, Statistics for Data Science"]
+    location: "Philadelphia, PA",
+    gpa: "3.91/4.0",
+    highlights: ["Teaching Assistant, CIS 5150 Linear Algebra & Optimization", "Coursework includes CIS 7000 (LLM agents), AI, Big Data Analytics, Statistics for Data Science"]
   },
   {
-    period: "June 2023",
-    degree: "Global Academic Internship Program — Data Analytics Using Deep Learning",
-    institution: "National University of Singapore",
-    location: "Singapore",
-    highlights: ["On-campus 3-week NUS SoC program with seminars + capstone project", "Best performer in a 100-member cohort"]
-  },
-  {
-    period: "Jan 2021 - Apr 2025", 
-    degree: "Bachelor of Science - Data Science & Applications",
-    institution: "Indian Institute of Technology, Madras",
+    period: "Jan 2021 - Apr 2025",
+    degree: "BS, Data Science & Applications",
+    institution: "Indian Institute of Technology Madras",
     location: "Chennai, India",
     gpa: "3.91/4.0",
-    highlights: ["Academic Merit Certificate - Top 1% GPA"]
+    highlights: ["Academic Merit Certificate (CGPA 9.04/10)", "Completed alongside the B.E. below; Secretary and Steering Committee, Paradox (IITM's student fest)"]
+  },
+  {
+    period: "Aug 2020 - May 2024",
+    degree: "B.E., Mechanical Engineering",
+    institution: "Sri Sivasubramaniya Nadar College of Engineering (Anna University)",
+    location: "Chennai, India",
+    highlights: ["Department topper, CGPA 9.21/10", "Merit Scholarship for the first three semesters"]
+  },
+  {
+    period: "Jul 2023",
+    degree: "Global Academic Internship Program, Data Analytics Using Deep Learning",
+    institution: "National University of Singapore, School of Computing",
+    location: "Singapore",
+    highlights: ["Three-week on-campus program", "Best Performer in a ~100-person cohort"]
   }
 ];
 
@@ -348,7 +372,7 @@ export function Experience() {
             Experience & Education
           </h2>
           <p className="text-lg lg:text-xl text-text-2 max-w-3xl mx-auto leading-relaxed">
-            My professional journey and academic background in AI, data science, and software engineering
+            Where I've worked and studied
           </p>
         </div>
 

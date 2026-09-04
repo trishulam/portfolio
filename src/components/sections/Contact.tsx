@@ -77,7 +77,7 @@ export function Contact() {
       );
       
       // Open email client
-      window.location.href = `mailto:nkvk@seas.upenn.edu?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:nkvk@engineering.upenn.edu?subject=${subject}&body=${body}`;
       
       // Analytics event
       if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -290,7 +290,7 @@ export function Contact() {
                       <AlertCircle className="w-5 h-5" />
                       <p className="font-semibold">Something went wrong</p>
                     </div>
-                    <p className="text-sm text-error/80">Please try again or email me directly at nkvk@seas.upenn.edu</p>
+                    <p className="text-sm text-error/80">Please try again or email me directly at nkvk@engineering.upenn.edu</p>
                   </div>
                 )}
               </form>
@@ -307,11 +307,11 @@ export function Contact() {
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="mailto:nkvk@seas.upenn.edu"
+                href="mailto:nkvk@engineering.upenn.edu"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-surface/50 border border-border hover:border-accent/50 rounded-xl text-text-2 hover:text-accent transition-all duration-300 backdrop-blur-sm hover:bg-surface/70"
               >
                 <Mail className="w-4 h-4" />
-                nkvk@seas.upenn.edu
+                nkvk@engineering.upenn.edu
               </a>
               
             </div>
