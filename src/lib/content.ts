@@ -19,19 +19,40 @@ export const now = [
   { label: "Thinking about", value: "Continual learning, model merging, agents that survive production" },
 ];
 
+export const stats = [
+  { value: "1st / 61", label: "Wharton Hack-AI-thon 2026" },
+  { value: "+8.5 pp", label: "Recall at 95% precision" },
+  { value: "4x → 1x", label: "Serving cost, merged" },
+  { value: "2 + 1", label: "Papers, one under review" },
+];
+
 export interface Role {
   org: string;
   team?: string;
   title: string;
   period: string;
   location: string;
+  now?: boolean;
   bullets: string[];
   links?: { label: string; url: string }[];
 }
 
 export const experience: Role[] = [
   {
+    org: "Google",
+    team: "YouTube Trust & Safety, GenAI Guardrails",
+    title: "Software Engineering Intern",
+    period: "May 2026 – Aug 2026",
+    location: "Mountain View, CA",
+    bullets: [
+      "Benchmarked 9 architectures and 8 weight-merging methods (SLERP, LERP, TIES, MagMax) in JAX on Gemma 3. Finding: consolidate in data space for encoders and weight space for decoders.",
+      "Handed off a joint multi-task encoder at 98.33% macro ROC-AUC: +8.5 pp recall over per-policy experts at 95% precision, replacing a 4x ensemble at 1x cost and lifting worst-policy recall from 6.49% to 62.86%.",
+      "Designed the OOD adaptation playbook (sequential zero-replay fine-tuning, then SLERP merge), cutting adaptation compute over 60% with no legacy-policy regression, and an agent that runs it end to end. First-author paper under review, NeurIPS 2026 workshop.",
+    ],
+  },
+  {
     org: "Amazon AGI",
+    now: true,
     team: "AWS SageMaker",
     title: "Software Development Engineer Intern, ML",
     period: "Sep 2026 – Dec 2026",
@@ -41,27 +62,13 @@ export const experience: Role[] = [
     ],
   },
   {
-    org: "Google",
-    team: "YouTube Trust & Safety, GenAI Guardrails",
-    title: "Software Engineering Intern",
-    period: "May 2026 – Aug 2026",
-    location: "Mountain View, CA",
-    bullets: [
-      "Benchmarked 9 architectures and 8 weight-merging methods (SLERP, LERP, TIES, MagMax) in JAX across Gemma-3 encoder classifiers and causal-decoder raters. Finding: consolidation has to happen in data space for encoders and weight space for decoders, from gradient conflict and later-layer representation drift respectively.",
-      "Handed off a joint unmasked multi-task encoder (shared violative head) at 98.33% macro ROC-AUC and +8.5 pp recall over per-policy experts at 95% precision, replacing a 4x ensemble at 1x cost and lifting worst-policy recall from 6.49% to 62.86%.",
-      "Designed the team's OOD adaptation playbook: sequential zero-replay fine-tuning plus SLERP 60/40 weight merging, eliminating the 15% replay buffer, cutting adaptation compute over 60%, and holding ID AUC at 91.3% with no legacy-policy regression. First-author paper under review at a NeurIPS 2026 workshop.",
-      "Built a long-horizon human-in-the-loop AutoML agent that runs the playbook end to end: curates OOD data, launches training, merges weights, validates checkpoints against quality thresholds, then promotes a production candidate.",
-    ],
-  },
-  {
     org: "S2T AI",
     team: "AI-powered investigations",
     title: "Software Engineer",
     period: "Dec 2024 – Aug 2025",
     location: "Singapore",
     bullets: [
-      "Owned the company's agentic AI from prototype to customers: a knowledge-graph RAG microservice searching documents and databases, plus an agentic assistant with multi-agent orchestration, tool calling, and generative UI.",
-      "Developed an AI ETL service for natural-language queries on unstructured data; deployed 8 Kubernetes microservices through Azure DevOps; improved audio spoofing detection by 15%.",
+      "Owned the company's agentic AI from prototype to customers: knowledge-graph RAG over documents and databases, a multi-agent assistant with tool calling and generative UI, an AI ETL service, and 8 Kubernetes microservices via Azure DevOps.",
     ],
   },
   {
@@ -71,20 +78,9 @@ export const experience: Role[] = [
     period: "May 2024 – Jun 2025",
     location: "Chennai, India",
     bullets: [
-      "Founded and led a full-stack AI platform automating vessel/cargo matching and pre-fixture workflows: event-driven microservices on AWS (Lambda, SQS, EC2), FastAPI, Next.js, Supabase, RAG, and MCP.",
-      "Processed 200+ vessels and 150+ cargo listings daily in trials, forged 5 industry partnerships, and secured INR 700,000 seed funding plus $2K AWS credits while leading all technical development.",
-      "No product-market fit in the end. I led all engineering and learned what I should have built instead.",
+      "Maritime matching startup incubated at Nirmaan, IIT Madras. Event-driven services on AWS, FastAPI, Next.js. 200+ vessels and 150+ cargo listings a day in trials, 5 industry partnerships, INR 7L seed. No product-market fit; the most useful year I've had.",
     ],
     links: [{ label: "Product demo", url: "https://youtu.be/yBCJVwjMqBI" }],
-  },
-  {
-    org: "32Mins Digital",
-    title: "AI Engineer Intern",
-    period: "Feb 2024 – May 2024",
-    location: "Chennai, India",
-    bullets: [
-      "AI dubbing system for 12 Indic languages; processed 500+ hours of content, including a pilot on parliamentary footage.",
-    ],
   },
 ];
 
@@ -133,6 +129,7 @@ export interface Project {
   name: string;
   when: string;
   kind: string;
+  kindOverride?: string;
   blurb: string;
   result?: string;
   stack: string[];
@@ -142,12 +139,10 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    name: "SGC: State-Governed Checkpointing for SWE Agents",
+    name: "SGC SWE Agent",
     when: "Apr 2026",
-    kind: "Coursework, CIS 7000",
-    blurb:
-      "Supervisor middleware that keeps a long-running coding agent on task. It maintains a semantic working state (goal, subgoal, actions tried, known failures, active hypothesis) and injects a steering directive when the agent drifts.",
-    result: "SWE-bench Verified (mini) resolution 66.7% → 72.3%, +11.2 pp on Django, 23% fewer agent steps",
+    kind: "CIS 7000",
+    blurb: "State-governed checkpointing: a supervisor that keeps a coding agent on task. SWE-bench Verified mini 66.7% → 72.3%, 23% fewer steps.",
     stack: ["Python", "LangGraph", "Deep Agents", "Docker", "SWE-bench", "GPT-5.5", "Gemini Flash 3"],
     links: [
       { label: "Code", url: "https://github.com/trishulam/sgc-swe-agent" },
@@ -165,8 +160,7 @@ export const projects: Project[] = [
     name: "ThinkSpace",
     when: "Mar 2026",
     kind: "Hackathon",
-    blurb:
-      "Real-time proactive multimodal tutor that teaches over voice and a shared editable canvas. An autonomous canvas interpreter watches learner activity and decides when to intervene, catching confusion as it happens. Sessions resume across visits and export as recordings and lecture notes.",
+    blurb: "Proactive multimodal tutor over voice and a shared canvas. A canvas interpreter decides when to step in.",
     stack: ["React", "TypeScript", "Python", "FastAPI", "Gemini Live", "Google ADK", "tldraw", "MediaPipe", "GCP"],
     links: [
       { label: "Demo", url: "https://youtu.be/IUsZXupcB9Q" },
@@ -178,9 +172,8 @@ export const projects: Project[] = [
     name: "WayWise",
     when: "Apr 2026",
     kind: "Hackathon",
-    blurb:
-      "Scores what is missing, stale, or contradictory across a hotel's reviews and asks recent guests exactly the questions whose answers would help the next traveler most.",
-    result: "1st of 61 teams, Wharton Hack-AI-thon 2026",
+    kindOverride: "Wharton Hack-AI-thon · 1st / 61",
+    blurb: "Finds what hotel reviews don't answer and asks recent guests the right questions.",
     stack: ["Python", "LLMs", "Ranking", "Next.js"],
     links: [{ label: "Hack-AI-thon", url: "https://ai-analytics.wharton.upenn.edu/for-students/wharton-hack-ai-thon/" }],
   },
@@ -188,9 +181,8 @@ export const projects: Project[] = [
     name: "Ayana",
     when: "Mar 2026",
     kind: "Hackathon",
-    blurb:
-      "Real-time travel guide. Agent narration stays in sync with Google Maps 3D camera transitions, so guidance is grounded in where you are on the map. Gesture and AR controls.",
-    result: "Best Use of Gemini API, YHack 2026",
+    kindOverride: "YHack 2026 · Best use of Gemini",
+    blurb: "Travel guide whose narration stays in sync with Google Maps 3D camera moves.",
     stack: ["Next.js", "FastAPI", "Gemini Live", "Google ADK", "Google Maps 3D", "MediaPipe", "Snap AR"],
     links: [{ label: "Devpost", url: "https://devpost.com/software/ayana-g0ys7f" }],
   },
@@ -198,9 +190,8 @@ export const projects: Project[] = [
     name: "MindPad",
     when: "Nov 2025",
     kind: "Hackathon",
-    blurb:
-      "Interactive, multimodal learning on the OpenAI Realtime API and Gemini: talk to it, watch it draw, quiz yourself on your own material.",
-    result: "Best Overall, Practical AI Innovation, and Use of Gemini API at HackPrinceton (195 teams)",
+    kindOverride: "HackPrinceton 2025 · Best overall",
+    blurb: "Multimodal learning on the OpenAI Realtime API and Gemini. Best of 195 teams.",
     stack: ["OpenAI Realtime API", "Gemini", "React", "TypeScript"],
     links: [{ label: "Devpost", url: "https://devpost.com/software/mindpad" }],
   },
@@ -208,8 +199,7 @@ export const projects: Project[] = [
     name: "GuruHeal",
     when: "2025",
     kind: "Side project",
-    blurb:
-      "Wellness assistant with multilingual chat, web search with inline citations, and a graph-RAG knowledge base of Ayurvedic sources.",
+    blurb: "Wellness assistant with cited web search and graph-RAG over Ayurvedic sources.",
     stack: ["Next.js", "PydanticAI", "FastAPI", "PostgreSQL", "Redis", "Graph RAG"],
     links: [{ label: "Code", url: "https://github.com/trishulam/Guruheal" }],
   },
@@ -223,18 +213,17 @@ export interface School {
 }
 
 export const education: School[] = [
-  { school: "University of Pennsylvania", degree: "MSE, Data Science", period: "2025 – 2027", note: "GPA 3.91. TA for CIS 5150 Linear Algebra & Optimization and CIS 5110 Theory of Computation. Courses: CIS 5210 AI, CIS 7000 Agentic AI, CIS 5190 Applied ML, CIS 5450 Big Data Analytics." },
-  { school: "IIT Madras", degree: "BS, Data Science & Applications", period: "2021 – 2025", note: "GPA 3.91. Academic Merit Certificate. Coursework included Deep Learning and Reinforcement Learning. Completed alongside the B.E. below." },
-  { school: "SSN College of Engineering, Anna University", degree: "B.E., Mechanical Engineering", period: "2020 – 2024", note: "Department topper, CGPA 9.21/10. Merit Scholarship, first three semesters." },
-  { school: "National University of Singapore", degree: "Global Academic Internship Program, Deep Learning", period: "Jul 2023", note: "Best Performer in a ~100-person cohort." },
+  { school: "University of Pennsylvania", degree: "MSE Data Science", period: "2025 – 27", note: "GPA 3.91" },
+  { school: "IIT Madras", degree: "BS Data Science & Applications", period: "2021 – 25", note: "GPA 3.91" },
+  { school: "NUS School of Computing", degree: "Deep learning program", period: "2023", note: "Best performer" },
 ];
 
-export const awards: { what: string; detail: string; when: string; url?: string }[] = [
-  { what: "Winner, 2026 Wharton Hack-AI-thon", detail: "First among 61 teams, with WayWise", when: "2026", url: "https://ai-analytics.wharton.upenn.edu/for-students/wharton-hack-ai-thon/" },
-  { what: "Best Use of Gemini API, YHack 2026", detail: "Ayana, real-time multimodal travel guide", when: "2026", url: "https://devpost.com/software/ayana-g0ys7f" },
-  { what: "YC Startup School 2026", detail: "One of 6,000 technical builders invited to YC's invite-only AI summit in SF", when: "2026", url: "https://events.ycombinator.com/startup-school-2026" },
-  { what: "Winner, HackPrinceton 2025 (MLH)", detail: "Best Overall, Practical AI Innovation, and Use of Gemini API among 195 teams, with MindPad", when: "2025", url: "https://devpost.com/software/mindpad" },
-  { what: "IITM Paradox", detail: "Steering Committee, Secretary & Core; built the org from scratch for a 22,000-student community", when: "2025 – 2026", url: "https://www.iitmparadox.org" },
+export const awards: { what: string; when: string; url?: string }[] = [
+  { what: "Winner, Wharton Hack-AI-thon", when: "2026", url: "https://ai-analytics.wharton.upenn.edu/for-students/wharton-hack-ai-thon/" },
+  { what: "Best Use of Gemini API, YHack", when: "2026", url: "https://devpost.com/software/ayana-g0ys7f" },
+  { what: "YC Startup School", when: "2026", url: "https://events.ycombinator.com/startup-school-2026" },
+  { what: "Winner, HackPrinceton (MLH)", when: "2025", url: "https://devpost.com/software/mindpad" },
+  { what: "Steering Committee, IITM Paradox", when: "2025 – 26", url: "https://www.iitmparadox.org" },
 ];
 
 export const skills: { group: string; items: string[] }[] = [

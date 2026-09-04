@@ -19,18 +19,18 @@
 
 :root {
   --ff-serif: var(--font-newsreader, "Iowan Old Style", Georgia), serif;
-  --ff-sans: var(--font-inter, system-ui, -apple-system, "Segoe UI"), sans-serif;
+  --ff-sans: var(--font-source, system-ui, -apple-system, "Segoe UI"), sans-serif;
   --ff-mono: var(--font-jetbrains, ui-monospace, "SF Mono", Menlo), monospace;
 }
 
 :root {
   color-scheme: light;
-  --paper: #f7f5f0;
-  --paper-2: #efece5;
+  --paper: #f6f3ec;
+  --paper-2: #eeeae1;
   --ink: #16150f;
   --ink-2: #4d4a42;
   --ink-3: #85817a;
-  --rule: #d9d5cc;
+  --rule: #ddd8cc;
   --accent: #1f4e8c;
   --accent-soft: #e4ecf7;
   --live: #2f8f5b;
@@ -84,7 +84,7 @@
 @layer components {
   .label {
     font-family: var(--ff-mono);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-3);
@@ -92,9 +92,23 @@
   .display {
     font-family: var(--ff-serif);
     font-weight: 400;
-    letter-spacing: -0.015em;
-    line-height: 1.05;
+    letter-spacing: -0.02em;
+    line-height: 1.0;
   }
+  .shell {
+    margin-inline: auto;
+    max-width: 1200px;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) { .shell { padding-inline: 2.5rem; } }
+  @media (min-width: 1280px) { .shell { padding-inline: 0; } }
+  .cells {
+    display: grid;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .cells > * { background: var(--paper); }
   .prose-link {
     color: var(--ink);
     text-decoration: underline;
