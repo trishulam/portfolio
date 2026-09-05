@@ -5,17 +5,18 @@ export function Hero() {
   return (
     <section id="top" className="mx-auto w-full max-w-[1200px] px-5 sm:px-10 xl:px-0 grid gap-12 pt-16 pb-14 sm:pt-24 sm:pb-16 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-start lg:gap-20">
       <div className="flex flex-col gap-7">
-        <Image
-          src="/avatar.jpg"
-          alt="Vamsi Krishna"
-          width={96}
-          height={96}
-          priority
-          className="h-16 w-16 rounded-full object-cover ring-1 ring-rule sm:h-20 sm:w-20"
-        />
         <h1 className="display text-[2.9rem] sm:text-6xl lg:text-[5rem]">
-          {site.name}.
-          <br />
+          <span className="flex items-center gap-4 sm:gap-5">
+            <Image
+              src="/avatar.jpg"
+              alt=""
+              width={120}
+              height={120}
+              priority
+              className="h-12 w-12 shrink-0 rounded-full object-cover ring-1 ring-rule sm:h-[3.4rem] sm:w-[3.4rem] lg:h-[4.2rem] lg:w-[4.2rem]"
+            />
+            <span>{site.name}.</span>
+          </span>
           <span className="italic text-ink-2">{site.tagline}</span>
         </h1>
         <p className="max-w-[620px] text-[1.1rem] leading-relaxed text-ink-2 sm:text-[1.2rem]">{site.intro}</p>
