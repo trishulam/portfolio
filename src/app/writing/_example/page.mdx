@@ -1,0 +1,13 @@
+import { PostLayout } from "@/components/PostLayout";
+
+export const metadata = { title: "Example post | Vamsi Krishna" };
+
+# Example post
+
+This folder is a template. To publish a post: copy this folder to `src/app/writing/<slug>/`,
+write in Markdown here, and add an entry with the same slug to `src/lib/writing.ts`.
+Folders starting with an underscore are not routed, so this one never appears on the site.
+
+export default function Page({ children }) {
+  return <PostLayout slug="_example">{children}</PostLayout>;
+}

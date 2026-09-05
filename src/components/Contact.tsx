@@ -13,6 +13,10 @@ export function Contact() {
               {site.email}
             </a>
           </p>
+          <p className="label mt-6 flex items-center gap-2 !text-live">
+            <span className="inline-block h-[7px] w-[7px] rounded-full bg-live" aria-hidden="true" />
+            {site.status}
+          </p>
         </div>
       </div>
     </section>

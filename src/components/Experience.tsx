@@ -4,7 +4,7 @@ export function Experience() {
   return (
     <section id="work" className="mx-auto w-full max-w-[1200px] px-5 sm:px-10 xl:px-0 scroll-mt-24 pt-2 sm:pt-4" aria-labelledby="work-label">
       <p id="work-label" className="label mb-7 pt-4">
-        Selected work
+        Now
       </p>
       <ol>
         {experience.map((r) => {

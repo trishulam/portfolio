@@ -5,20 +5,14 @@ export function Hero() {
   return (
     <section id="top" className="mx-auto w-full max-w-[1200px] px-5 sm:px-10 xl:px-0 grid gap-12 pt-16 pb-14 sm:pt-24 sm:pb-16 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-start lg:gap-20">
       <div className="flex flex-col gap-7">
-        <div className="flex items-center gap-4">
-          <Image
-            src="/avatar.jpg"
-            alt="Vamsi Krishna"
-            width={96}
-            height={96}
-            priority
-            className="h-16 w-16 rounded-full object-cover ring-1 ring-rule sm:h-20 sm:w-20"
-          />
-          <p className="label flex items-center gap-2 !text-live">
-            <span className="inline-block h-[7px] w-[7px] rounded-full bg-live" aria-hidden="true" />
-            Open to 2027 new grad roles
-          </p>
-        </div>
+        <Image
+          src="/avatar.jpg"
+          alt="Vamsi Krishna"
+          width={96}
+          height={96}
+          priority
+          className="h-16 w-16 rounded-full object-cover ring-1 ring-rule sm:h-20 sm:w-20"
+        />
         <h1 className="display text-[2.9rem] sm:text-6xl lg:text-[5rem]">
           {site.name}.
           <br />
